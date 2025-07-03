@@ -29,6 +29,7 @@ const GrainSelector = ({ grains, addToMix }) => {
               style={{ backgroundColor: grain.color }}
             ></div>
             <h3>{grain.name}</h3>
+            <span className="grain-price">₹{grain.price}/kg</span>
             <div className="weight-control">
               <button
                 onClick={() =>
