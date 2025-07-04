@@ -22,14 +22,19 @@ const GrainSelector = ({ grains, addToMix }) => {
     <div className="grain-selector">
       <h2>Grains</h2>
       <div className="grain-list">
+        {" "}
         {grains.map((grain) => (
           <div key={grain.id} className="grain-card">
-            <div
-              className="grain-card-color"
-              style={{ backgroundColor: grain.color }}
-            ></div>
-            <h3>{grain.name}</h3>
-            <span className="grain-price">₹{grain.price}/kg</span>
+            <div className="grain-card-header">
+              <div
+                className="grain-card-color"
+                style={{ backgroundColor: grain.color }}
+              ></div>
+              <div className="grain-card-info">
+                <h3>{grain.name}</h3>
+                <span className="grain-price">₹{grain.price}/kg</span>
+              </div>
+            </div>
             <div className="weight-control">
               <button
                 onClick={() =>
@@ -56,8 +61,12 @@ const GrainSelector = ({ grains, addToMix }) => {
                 +
               </button>
             </div>
-            <button className="add-button" onClick={() => handleAdd(grain)}>
-              Add
+            <button
+              className="add-button"
+              onClick={() => handleAdd(grain)}
+              disabled={!weights[grain.id] || weights[grain.id] <= 0}
+            >
+              Add to Mix
             </button>
           </div>
         ))}

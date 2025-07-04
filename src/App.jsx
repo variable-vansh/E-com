@@ -4,16 +4,17 @@ import Visualization from "./components/Visualization";
 import Cart from "./components/Cart";
 import MixSummary from "./components/MixSummary"; // Import the new component
 import Header from "./components/Header";
+import Shop from "./components/Shop";
 import "./components/Header.css";
 import "./App.css";
 
 function App() {
   const [grains, setGrains] = useState([
-    { id: 1, name: "Wheat", color: "#F5DEB3", price: 40 },
-    { id: 2, name: "Rye", color: "#D2B48C", price: 45 },
-    { id: 3, name: "Barley", color: "#F0E68C", price: 50 },
-    { id: 4, name: "Oats", color: "#F5F5DC", price: 35 },
-    { id: 5, name: "Millet", color: "#E6D8AD", price: 55 },
+    { id: 1, name: "Grain 1", color: "#F5DEB3", price: 40 },
+    { id: 2, name: "Grain 2", color: "#D2B48C", price: 45 },
+    { id: 3, name: "Grain 3", color: "#F0E68C", price: 50 },
+    { id: 4, name: "Grain 4", color: "#F5F5DC", price: 35 },
+    { id: 5, name: "Grain 5", color: "#E6D8AD", price: 55 },
   ]);
 
   const [mix, setMix] = useState([]);
@@ -42,6 +43,12 @@ function App() {
     setMix([]);
   };
 
+  const addShopItemToCart = (shopItem) => {
+    // Add shop item as a single-item array to maintain cart structure
+    setCart([...cart, [{ ...shopItem, weight: 1, isShopItem: true }]]);
+    console.log("Shop item added to cart:", shopItem);
+  };
+
   const removeFromCart = (indexToRemove) => {
     setCart(cart.filter((_, index) => index !== indexToRemove));
   };
@@ -68,6 +75,7 @@ function App() {
             removeFromCart={removeFromCart}
           />
         </div>
+        <Shop addShopItemToCart={addShopItemToCart} />
       </div>
     </div>
   );

@@ -11,12 +11,14 @@ const Cart = ({ cart, removeFromCart }) => {
   const toggleAddress = () => {
     setIsAddressOpen(!isAddressOpen);
   };
-
   const calculateTotalPrice = () => {
     return cart.reduce((total, mix) => {
       return (
         total +
         mix.reduce((mixTotal, grain) => {
+          if (grain.isShopItem) {
+            return mixTotal + grain.price;
+          }
           return mixTotal + grain.weight * grain.price;
         }, 0)
       );
@@ -30,18 +32,30 @@ const Cart = ({ cart, removeFromCart }) => {
         <span>{isOpen ? "▲" : "▼"}</span>
       </div>
       <div className="cart-content">
+        {" "}
         <div className="cart-items">
           {cart.map((mix, index) => (
             <div key={index} className="cart-item">
-              <h3>Mix {index + 1}</h3>
-              <ul>
-                {mix.map((grain) => (
-                  <li key={grain.id}>
-                    {grain.name}: {grain.weight} kg - ₹
-                    {grain.weight * grain.price}
-                  </li>
-                ))}
-              </ul>
+              {mix.length === 1 && mix[0].isShopItem ? (
+                // Shop item display
+                <div>
+                  <h3>{mix[0].name}</h3>
+                  <p>₹{mix[0].price}</p>
+                </div>
+              ) : (
+                // Grain mix display
+                <div>
+                  <h3>Mix {index + 1}</h3>
+                  <ul>
+                    {mix.map((grain) => (
+                      <li key={grain.id}>
+                        {grain.name}: {grain.weight} kg - ₹
+                        {grain.weight * grain.price}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
               <button onClick={() => removeFromCart(index)}>🗑️</button>
             </div>
           ))}
