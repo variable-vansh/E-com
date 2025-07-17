@@ -29,22 +29,22 @@
   .app-main {
     padding: 1rem 0.5rem;
   }
-  
+
   .app-main-content {
     padding-top: 70px; /* Adjust for smaller mobile header */
   }
-  
+
   /* Touch-friendly button sizes */
   button {
     min-height: 44px;
     min-width: 44px;
   }
-  
+
   .add-button {
     padding: 16px 24px;
     font-size: 1rem;
   }
-  
+
   .shop-item-button {
     padding: 12px 20px;
     font-size: 0.95rem;
