@@ -99,3 +99,51 @@
 .product-card-add-btn:hover {
   background-color: #bbf7d0;
 }
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .product-card {
+    padding: 0.75rem;
+  }
+
+  .product-card-image {
+    height: 6rem;
+  }
+
+  .product-card-name {
+    font-size: 0.9rem;
+    height: 2rem;
+  }
+
+  .product-card-price {
+    font-size: 1rem;
+  }
+
+  .product-card-quantity-btn {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .product-card-add-btn {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-card {
+    padding: 0.5rem;
+  }
+
+  .product-card-image {
+    height: 5rem;
+  }
+
+  .product-card-name {
+    font-size: 0.8rem;
+  }
+
+  .product-card-price {
+    font-size: 0.9rem;
+  }
+}

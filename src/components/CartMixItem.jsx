@@ -35,48 +35,78 @@ export const CartMixItem = ({ mix, onRemove, grainsData }) => {
       <div className="cart-item-header">
         <h3>Custom Multigrain Atta</h3>
         <span className="cart-item-price">₹{price.toFixed(2)}</span>
-      </div>{" "}
+      </div>
+
       <div className="cart-item-details">
         <div className="mix-visualizer">
           <div
-            className="mini-visualizer"
+            className="mini-visualizer-container"
             onClick={() => setShowBreakdown(!showBreakdown)}
-            style={{ cursor: "pointer" }}
-            title="Click to show/hide breakdown"
           >
-            {visualizerBars.map((bar) => (
-              <div
-                key={bar.id}
-                className="visualizer-segment"
-                style={{
-                  width: bar.width,
-                  backgroundColor: bar.color,
-                }}
-              />
-            ))}
+            <div className="mini-visualizer">
+              {visualizerBars.map((bar) => (
+                <div
+                  key={bar.id}
+                  className="visualizer-segment"
+                  style={{
+                    width: bar.width,
+                    backgroundColor: bar.color,
+                  }}
+                />
+              ))}
+            </div>
+            <div className="mix-info">
+              <span className="mix-weight">{weight.toFixed(1)} kg total</span>
+              <span className="mix-grains-count">
+                {visualizerBars.length} grain
+                {visualizerBars.length > 1 ? "s" : ""}
+              </span>
+            </div>
+            <div
+              className={`dropdown-arrow ${showBreakdown ? "expanded" : ""}`}
+            >
+              ▼
+            </div>
           </div>
-          <span className="mix-weight">{weight.toFixed(1)} kg total</span>
         </div>
         <button className="remove-button" onClick={onRemove}>
           ×
         </button>
       </div>
-      {showBreakdown && (
-        <div className="mix-breakdown">
-          {visualizerBars.map((bar) => (
-            <div key={bar.id} className="mix-item">
-              <div className="mix-item-info">
-                <div
-                  className="mix-color-indicator"
-                  style={{ backgroundColor: bar.color }}
-                />
-                <span>{bar.name}</span>
+
+      <div className={`mix-breakdown ${showBreakdown ? "expanded" : ""}`}>
+        <div className="mix-breakdown-content">
+          <div className="mix-breakdown-header">
+            <h4>Mix Composition</h4>
+            <span className="total-weight">Total: {weight.toFixed(1)} kg</span>
+          </div>
+          <div className="mix-items-grid">
+            {visualizerBars.map((bar, index) => (
+              <div
+                key={bar.id}
+                className="mix-item"
+                style={{
+                  animationDelay: `${index * 0.1}s`,
+                }}
+              >
+                <div className="mix-item-info">
+                  <div
+                    className="mix-color-indicator"
+                    style={{ backgroundColor: bar.color }}
+                  />
+                  <span className="mix-item-name">{bar.name}</span>
+                </div>
+                <div className="mix-item-details">
+                  <span className="mix-item-quantity">{bar.quantity}kg</span>
+                  <span className="mix-item-percentage">
+                    {((bar.quantity / weight) * 100).toFixed(1)}%
+                  </span>
+                </div>
               </div>
-              <span>{bar.quantity}kg</span>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };

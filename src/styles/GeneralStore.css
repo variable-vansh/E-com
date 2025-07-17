@@ -105,3 +105,37 @@
     grid-template-columns: repeat(5, 1fr);
   }
 }
+
+/* Mobile responsive styles */
+@media (max-width: 640px) {
+  .general-store-title {
+    font-size: 1.5rem;
+  }
+
+  .general-store-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .general-store-search {
+    display: flex;
+    width: 100%;
+    max-width: none;
+  }
+
+  .general-store-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .general-store-categories {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .general-store-category-btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+  }
+}

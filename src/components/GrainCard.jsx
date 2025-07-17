@@ -1,5 +1,3 @@
-import { InfoIcon } from "./Icons";
-
 export const GrainCard = ({
   grain,
   quantity,
@@ -39,16 +37,6 @@ export const GrainCard = ({
       <div className="grain-card-content">
         <div className="grain-card-header">
           <h4 className="grain-card-name">{grain.name}</h4>
-          <div className="grain-card-info">
-            <InfoIcon />
-            <div className="grain-card-tooltip">
-              <h5 className="grain-card-tooltip-title">Nutrition / 100g</h5>
-              <p>Protein: {grain.nutrition.Protein}</p>
-              <p>Fiber: {grain.nutrition.Fiber}</p>
-              <p>Carbs: {grain.nutrition.Carbs}</p>
-              <div className="grain-card-tooltip-arrow"></div>
-            </div>
-          </div>
         </div>
         <p className="grain-card-price">₹{grain.price}/kg</p>
         <div className="grain-card-controls">

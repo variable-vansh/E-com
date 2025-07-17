@@ -22,53 +22,94 @@
   transition: height 0.3s ease;
 }
 
-/* Grain color variants for visualizer */
+/* Grain color variants for visualizer - lighter, more pastel colors */
 .mix-grain-wheat {
-  background-color: #fbbf24;
+  background-color: rgba(251, 191, 36, 0.4);
   color: #1f2937;
+  border: 1px solid rgba(251, 191, 36, 0.6);
 }
 
 .mix-grain-jowar {
-  background-color: #fb923c;
+  background-color: rgba(251, 146, 60, 0.4);
   color: #1f2937;
+  border: 1px solid rgba(251, 146, 60, 0.6);
 }
 
 .mix-grain-bajra {
-  background-color: #a8a29e;
+  background-color: rgba(168, 162, 158, 0.4);
   color: #1f2937;
+  border: 1px solid rgba(168, 162, 158, 0.6);
 }
 
 .mix-grain-ragi {
-  background-color: #881337;
-  color: white;
+  background-color: rgba(244, 63, 94, 0.4);
+  color: #1f2937;
+  border: 1px solid rgba(244, 63, 94, 0.6);
 }
 
 .mix-grain-chana {
-  background-color: #fde047;
+  background-color: rgba(254, 240, 138, 0.5);
   color: #1f2937;
+  border: 1px solid rgba(254, 240, 138, 0.7);
 }
 
 .mix-grain-makka {
-  background-color: #facc15;
+  background-color: rgba(251, 191, 36, 0.4);
   color: #1f2937;
+  border: 1px solid rgba(251, 191, 36, 0.6);
 }
 
 .mix-grain-soyabean {
-  background-color: #bef264;
+  background-color: rgba(190, 242, 100, 0.4);
   color: #1f2937;
+  border: 1px solid rgba(190, 242, 100, 0.6);
 }
 
 .mix-grain-oats {
-  background-color: #cbd5e1;
+  background-color: rgba(148, 163, 184, 0.4);
   color: #1f2937;
+  border: 1px solid rgba(148, 163, 184, 0.6);
 }
 
 .mix-grain-barley {
-  background-color: #fcd34d;
+  background-color: rgba(194, 120, 3, 0.4);
   color: #1f2937;
+  border: 1px solid rgba(194, 120, 3, 0.6);
 }
 
 .mix-grain-kuttu {
-  background-color: #57534e;
-  color: white;
+  background-color: rgba(120, 113, 108, 0.4);
+  color: #1f2937;
+  border: 1px solid rgba(120, 113, 108, 0.6);
+}
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .mix-visualizer {
+    min-height: 300px;
+  }
+
+  .mix-visualizer-grain {
+    font-size: 0.7rem;
+  }
+
+  .mix-visualizer-empty {
+    padding: 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .mix-visualizer {
+    min-height: 250px;
+  }
+
+  .mix-visualizer-grain {
+    font-size: 0.6rem;
+  }
+
+  .mix-visualizer-empty {
+    padding: 1rem;
+    font-size: 0.8rem;
+  }
 }

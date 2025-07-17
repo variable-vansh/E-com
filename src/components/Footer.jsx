@@ -3,7 +3,7 @@ export const Footer = () => (
     <div className="footer-container">
       <div className="footer-content">
         <div className="footer-section">
-          <h4>Ghar Ki Chakki</h4>
+          <h4>Shop Name</h4>
           <p>
             Freshly ground atta and daily essentials, delivered to your
             doorstep.
@@ -26,7 +26,7 @@ export const Footer = () => (
         <div className="footer-section footer-contact">
           <h4>Contact Us</h4>
           <p>
-            <i className="fas fa-map-marker-alt"></i>123 Chakki Lane, Basti, UP
+            <i className="fas fa-map-marker-alt"></i>123 Address, City, State
           </p>
           <p>
             <i className="fas fa-phone"></i>+91 98765 43210
@@ -34,7 +34,7 @@ export const Footer = () => (
         </div>
       </div>
       <div className="footer-bottom">
-        <p>&copy; 2025 Ghar Ki Chakki. All Rights Reserved.</p>
+        <p>&copy; 2025 Shop Name. All Rights Reserved.</p>
       </div>
     </div>
   </footer>

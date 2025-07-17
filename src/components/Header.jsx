@@ -6,7 +6,7 @@ export const Header = ({ cartItemCount, onCartClick }) => (
       <div className="header-content">
         <div className="header-logo">
           <SeedlingIcon />
-          <h1>Ghar Ki Chakki</h1>
+          <h1>Shop Name</h1>
         </div>
         <div className="header-search">
           <LocationIcon />
