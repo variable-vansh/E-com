@@ -1,0 +1,107 @@
+/* GeneralStore Component Styles */
+.general-store {
+  margin-bottom: 3rem;
+}
+
+.general-store-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.general-store-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+}
+
+.general-store-search {
+  display: none;
+  align-items: center;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  width: 100%;
+  max-width: 20rem;
+  background-color: white;
+}
+
+.general-store-search input {
+  margin-left: 0.5rem;
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 0.875rem;
+}
+
+.general-store-search input::placeholder {
+  color: #9ca3af;
+}
+
+.general-store-categories {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.general-store-category-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.general-store-category-btn-active {
+  background-color: #16a34a;
+  color: white;
+}
+
+.general-store-category-btn-inactive {
+  background-color: white;
+  color: #374151;
+  border: 1px solid #d1d5db;
+}
+
+.general-store-category-btn-inactive:hover {
+  background-color: #f3f4f6;
+}
+
+.general-store-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .general-store-search {
+    display: flex;
+  }
+}
+
+@media (min-width: 768px) {
+  .general-store-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .general-store-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .general-store-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}

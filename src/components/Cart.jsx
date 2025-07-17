@@ -1,87 +1,103 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { CartMixItem } from "./CartMixItem";
+import { CartProductItem } from "./CartProductItem";
+import { DeliveryDetails } from "./DeliveryDetails";
+import { CartSummary } from "./CartSummary";
+import { useCartCalculations } from "./hooks/useCartCalculations";
 
-const Cart = ({ cart, removeFromCart }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isAddressOpen, setIsAddressOpen] = useState(false);
-
-  const toggleCart = () => {
-    setIsOpen(!isOpen);
+export const Cart = ({
+  isOpen,
+  onClose,
+  cart,
+  cartMix,
+  onCartChange,
+  onMixRemove,
+  grainsData,
+  productsData,
+}) => {
+  const [isClosing, setIsClosing] = useState(false);
+  const [addressDetails, setAddressDetails] = useState({
+    address: "",
+    pincode: "",
+    phone: "",
+  });
+  const {
+    itemTotalPrice,
+    deliveryFee,
+    grandTotal,
+    isPayButtonDisabled,
+    hasItems,
+    isAddressFilled,
+  } = useCartCalculations(
+    cart,
+    cartMix,
+    addressDetails,
+    grainsData,
+    productsData
+  );
+  const handleAddressChange = (e) => {
+    const { id, value } = e.target;
+    setAddressDetails((prev) => ({ ...prev, [id]: value }));
   };
 
-  const toggleAddress = () => {
-    setIsAddressOpen(!isAddressOpen);
-  };
-  const calculateTotalPrice = () => {
-    return cart.reduce((total, mix) => {
-      return (
-        total +
-        mix.reduce((mixTotal, grain) => {
-          if (grain.isShopItem) {
-            return mixTotal + grain.price;
-          }
-          return mixTotal + grain.weight * grain.price;
-        }, 0)
-      );
-    }, 0);
+  const handleClose = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+      setIsClosing(false);
+    }, 400);
   };
 
+  if (!isOpen) return null;
   return (
-    <div className={`cart-container ${isOpen ? "open" : ""}`}>
-      <div className="cart-header" onClick={toggleCart}>
-        <h2>Cart ({cart.length})</h2>
-        <span>{isOpen ? "▲" : "▼"}</span>
-      </div>
-      <div className="cart-content">
-        {" "}
-        <div className="cart-items">
-          {cart.map((mix, index) => (
-            <div key={index} className="cart-item">
-              {mix.length === 1 && mix[0].isShopItem ? (
-                // Shop item display
-                <div>
-                  <h3>{mix[0].name}</h3>
-                  <p>₹{mix[0].price}</p>
-                </div>
-              ) : (
-                // Grain mix display
-                <div>
-                  <h3>Mix {index + 1}</h3>
-                  <ul>
-                    {mix.map((grain) => (
-                      <li key={grain.id}>
-                        {grain.name}: {grain.weight} kg - ₹
-                        {grain.weight * grain.price}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-              <button onClick={() => removeFromCart(index)}>🗑️</button>
-            </div>
+    <>
+      <div
+        className={`cart-overlay ${isClosing ? "closing" : ""}`}
+        onClick={handleClose}
+      />
+      <div className={`cart-container ${isClosing ? "closing" : ""}`}>
+        <div className="cart-header">
+          <h2 className="cart-title">Your Cart</h2>
+          <button className="cart-close-btn" onClick={handleClose}>
+            ×
+          </button>
+        </div>
+        <div className="cart-content">
+          {Object.keys(cartMix).length > 0 && (
+            <CartMixItem
+              mix={cartMix}
+              onRemove={onMixRemove}
+              grainsData={grainsData}
+            />
+          )}
+          {Object.keys(cart).map((id) => (
+            <CartProductItem
+              key={id}
+              product={productsData.find((p) => p.id == id)}
+              quantity={cart[id]}
+              onQuantityChange={onCartChange}
+            />
           ))}
-        </div>
-        <div className="cart-total">
-          <h3>Total: ₹{calculateTotalPrice().toFixed(2)}</h3>
-        </div>
-        <div className="shipping-address">
-          {!isAddressOpen && (
-            <button onClick={toggleAddress} className="checkout-button">
-              Add Address and Checkout
-            </button>
-          )}
-          {isAddressOpen && (
-            <form className="checkout-form">
-              <input type="text" placeholder="Full Name" />
-              <input type="text" placeholder="Address" />
-              <input type="text" placeholder="City" />
-              <input type="text" placeholder="Postal Code" />
-              <button type="submit">Checkout</button>
-            </form>
-          )}
+          {Object.keys(cartMix).length === 0 &&
+            Object.keys(cart).length === 0 && (
+              <p className="cart-empty-message">Your cart is empty.</p>
+            )}
+        </div>{" "}
+        <div className="cart-footer">
+          <DeliveryDetails
+            addressDetails={addressDetails}
+            onAddressChange={handleAddressChange}
+          />{" "}
+          <CartSummary
+            itemTotalPrice={itemTotalPrice}
+            deliveryFee={deliveryFee}
+            grandTotal={grandTotal}
+            isPayButtonDisabled={isPayButtonDisabled}
+            hasItems={hasItems}
+            isAddressFilled={isAddressFilled}
+          />
         </div>
       </div>
-    </div>
+    </>
   );
 };
-
-export default Cart;

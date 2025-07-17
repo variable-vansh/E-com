@@ -1,17 +1,23 @@
-import React from "react";
+import { SeedlingIcon, LocationIcon, CartIcon } from "./Icons";
 
-const Header = () => {
-  return (
-    <header className="app-header">
-      <div className="shop-info">
-        <h1>Shop Name</h1>
-        <div className="contact-info">
-          <p>Address: A123, BC45, DE</p>
-          <p>Contact: 9999999999</p>
+export const Header = ({ cartItemCount, onCartClick }) => (
+  <header className="header">
+    <div className="header-container">
+      <div className="header-content">
+        <div className="header-logo">
+          <SeedlingIcon />
+          <h1>Ghar Ki Chakki</h1>
         </div>
+        <div className="header-search">
+          <LocationIcon />
+          <input type="text" placeholder="Enter your delivery location" />
+        </div>
+        <button onClick={onCartClick} className="header-cart-btn">
+          <CartIcon />
+          <span>Cart</span>
+          <span className="header-cart-count">{cartItemCount}</span>
+        </button>
       </div>
-    </header>
-  );
-};
-
-export default Header;
+    </div>
+  </header>
+);

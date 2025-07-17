@@ -1,84 +1,107 @@
-import { useState } from "react";
-import GrainSelector from "./components/GrainSelector";
-import Visualization from "./components/Visualization";
-import Cart from "./components/Cart";
-import MixSummary from "./components/MixSummary"; // Import the new component
-import Header from "./components/Header";
-import Shop from "./components/Shop";
-import "./components/Header.css";
+import React, { useState, useMemo, useCallback } from "react";
 import "./App.css";
 
-function App() {
-  const [grains, setGrains] = useState([
-    { id: 1, name: "Grain 1", color: "#F5DEB3", price: 40 },
-    { id: 2, name: "Grain 2", color: "#D2B48C", price: 45 },
-    { id: 3, name: "Grain 3", color: "#F0E68C", price: 50 },
-    { id: 4, name: "Grain 4", color: "#F5F5DC", price: 35 },
-    { id: 5, name: "Grain 5", color: "#E6D8AD", price: 55 },
-  ]);
+// Import data
+import { grainsData, productsData } from "./data/shopData";
 
-  const [mix, setMix] = useState([]);
-  const [cart, setCart] = useState([]);
+// Import components
+import { Header } from "./components/Header";
+import { AttaComposer } from "./components/AttaComposer";
+import { GeneralStore } from "./components/GeneralStore";
+import { Footer } from "./components/Footer";
+import { Cart } from "./components/Cart";
 
-  const addToMix = (grain, weight) => {
-    const existingGrain = mix.find((g) => g.id === grain.id);
-    if (existingGrain) {
-      setMix(
-        mix.map((g) =>
-          g.id === grain.id ? { ...g, weight: g.weight + weight } : g
-        )
-      );
-    } else {
-      setMix([...mix, { ...grain, weight }]);
+export default function App() {
+  const [customMix, setCustomMix] = useState({});
+  const [cartMix, setCartMix] = useState({});
+  const [cart, setCart] = useState({});
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const handleMixChange = useCallback((grainId, action) => {
+    setCustomMix((prevMix) => {
+      const newMix = { ...prevMix };
+      const currentQty = newMix[grainId] || 0;
+      if (action === "increase") {
+        newMix[grainId] = parseFloat((currentQty + 0.5).toFixed(1));
+      } else if (action === "decrease" && currentQty > 0) {
+        newMix[grainId] = parseFloat((currentQty - 0.5).toFixed(1));
+      }
+      if (newMix[grainId] <= 0) {
+        delete newMix[grainId];
+      }
+      return newMix;
+    });
+  }, []);
+
+  const handleAddMixToCart = useCallback(() => {
+    if (Object.keys(customMix).length > 0) {
+      setCartMix(customMix);
+      setCustomMix({});
     }
-  };
+  }, [customMix]);
 
-  const removeFromMix = (grainId) => {
-    setMix(mix.filter((g) => g.id !== grainId));
-  };
+  const handleCartChange = useCallback((productId, action) => {
+    setCart((prevCart) => {
+      const newCart = { ...prevCart };
+      const currentQty = newCart[productId] || 0;
+      if (action === "increase") {
+        newCart[productId] = currentQty + 1;
+      } else if (action === "decrease" && currentQty > 0) {
+        newCart[productId] = currentQty - 1;
+      }
+      if (newCart[productId] <= 0) {
+        delete newCart[productId];
+      }
+      return newCart;
+    });
+  }, []);
 
-  const addToCart = () => {
-    setCart([...cart, mix]);
-    console.log("Mix added to cart:", mix);
-    setMix([]);
-  };
+  const handleRemoveMixFromCart = useCallback(() => {
+    setCartMix({});
+  }, []);
 
-  const addShopItemToCart = (shopItem) => {
-    // Add shop item as a single-item array to maintain cart structure
-    setCart([...cart, [{ ...shopItem, weight: 1, isShopItem: true }]]);
-    console.log("Shop item added to cart:", shopItem);
-  };
+  const toggleCart = useCallback(() => {
+    setIsCartOpen((prev) => !prev);
+  }, []);
 
-  const removeFromCart = (indexToRemove) => {
-    setCart(cart.filter((_, index) => index !== indexToRemove));
-  };
+  const cartItemCount = useMemo(() => {
+    const mixCount = Object.keys(cartMix).length > 0 ? 1 : 0;
+    const productCount = Object.keys(cart).length;
+    return mixCount + productCount;
+  }, [cart, cartMix]);
 
   return (
-    <div className="App">
-      <Header />
-      <div className="main-content-area">
-        <div className="main-container">
-          <div className="content-left">
-            <GrainSelector grains={grains} addToMix={addToMix} />
-            <div className="visualization-and-mix">
-              <Visualization mix={mix} />
-              <MixSummary
-                mix={mix}
-                removeFromMix={removeFromMix}
-                addToCart={addToCart}
-              />
-            </div>
-          </div>
-          <Cart
-            cart={cart}
-            addToCart={addToCart}
-            removeFromCart={removeFromCart}
-          />
+    <div className="app">
+      <div className="bg-gradient"></div>
+      <div className="app-layout">
+        <div className="app-main-content">
+          <Header cartItemCount={cartItemCount} onCartClick={toggleCart} />
+          <main className="app-main">
+            <AttaComposer
+              customMix={customMix}
+              onMixChange={handleMixChange}
+              onAddToCart={handleAddMixToCart}
+              grainsData={grainsData}
+            />
+            <GeneralStore
+              products={productsData}
+              cart={cart}
+              onCartChange={handleCartChange}
+            />
+          </main>
+          <Footer />
         </div>
-        <Shop addShopItemToCart={addShopItemToCart} />
+        <Cart
+          isOpen={isCartOpen}
+          onClose={toggleCart}
+          cart={cart}
+          cartMix={cartMix}
+          onCartChange={handleCartChange}
+          onMixRemove={handleRemoveMixFromCart}
+          grainsData={grainsData}
+          productsData={productsData}
+        />
       </div>
     </div>
   );
 }
-
-export default App;
