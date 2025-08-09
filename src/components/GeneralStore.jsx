@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { ProductCard } from "./ProductCard";
 import { SearchIcon } from "./Icons";
 
-export const GeneralStore = ({ products, cart, onCartChange }) => {
+export const GeneralStore = ({ products, categories, cart, onCartChange }) => {
   const [category, setCategory] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -15,8 +15,6 @@ export const GeneralStore = ({ products, cart, onCartChange }) => {
       return categoryMatch && searchMatch;
     });
   }, [products, category, searchTerm]);
-
-  const categories = ["All", "Oils & Ghee", "Spices", "Snacks", "Pulses"];
 
   return (
     <section className="general-store">

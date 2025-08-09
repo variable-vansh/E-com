@@ -1,151 +1,23 @@
-export const grainsData = [
-  {
-    id: 1,
-    name: "Wheat",
-    price: 42,
-    image: "https://placehold.co/100x100/c2b280/FFFFFF?text=Wheat",
-    nutrition: { Protein: "13g", Fiber: "12g", Carbs: "71g" },
-    color: "#fbbf24",
-    cardColor: "bg-amber-100/60",
-  },
-  {
-    id: 2,
-    name: "Jowar",
-    price: 55,
-    image: "https://placehold.co/100x100/e6d9b1/FFFFFF?text=Jowar",
-    nutrition: { Protein: "11g", Fiber: "6g", Carbs: "75g" },
-    color: "#fed7aa",
-    cardColor: "bg-orange-100/60",
-  },
-  {
-    id: 3,
-    name: "Bajra",
-    price: 60,
-    image: "https://placehold.co/100x100/a89a7f/FFFFFF?text=Bajra",
-    nutrition: { Protein: "11g", Fiber: "1g", Carbs: "67g" },
-    color: "#a8a29e",
-    cardColor: "bg-stone-200/60",
-  },
-  {
-    id: 4,
-    name: "Ragi",
-    price: 75,
-    image: "https://placehold.co/100x100/8b4513/FFFFFF?text=Ragi",
-    nutrition: { Protein: "7g", Fiber: "11g", Carbs: "72g" },
-    color: "#881337",
-    cardColor: "bg-rose-200/60",
-  },
-  {
-    id: 5,
-    name: "Chana",
-    price: 90,
-    image: "https://placehold.co/100x100/f5deb3/FFFFFF?text=Chana",
-    nutrition: { Protein: "19g", Fiber: "17g", Carbs: "61g" },
-    color: "#fde047",
-    cardColor: "bg-yellow-100/60",
-  },
-  {
-    id: 6,
-    name: "Makka",
-    price: 48,
-    image: "https://placehold.co/100x100/fbec5d/FFFFFF?text=Makka",
-    nutrition: { Protein: "9g", Fiber: "7g", Carbs: "74g" },
-    color: "#facc15",
-    cardColor: "bg-yellow-200/60",
-  },
-  {
-    id: 7,
-    name: "Soyabean",
-    price: 110,
-    image: "https://placehold.co/100x100/d8c99e/FFFFFF?text=Soyabean",
-    nutrition: { Protein: "36g", Fiber: "9g", Carbs: "30g" },
-    color: "#bef264",
-    cardColor: "bg-lime-100/60",
-  },
-  {
-    id: 8,
-    name: "Oats",
-    price: 85,
-    image: "https://placehold.co/100x100/f5e9d3/FFFFFF?text=Oats",
-    nutrition: { Protein: "17g", Fiber: "11g", Carbs: "66g" },
-    color: "#cbd5e1",
-    cardColor: "bg-slate-200/60",
-  },
-  {
-    id: 9,
-    name: "Barley (Jau)",
-    price: 58,
-    image: "https://placehold.co/100x100/e3c598/FFFFFF?text=Barley",
-    nutrition: { Protein: "12g", Fiber: "17g", Carbs: "73g" },
-    color: "#fcd34d",
-    cardColor: "bg-amber-100/60",
-  },
-  {
-    id: 10,
-    name: "Kuttu",
-    price: 150,
-    image: "https://placehold.co/100x100/6a5445/FFFFFF?text=Kuttu",
-    nutrition: { Protein: "13g", Fiber: "10g", Carbs: "72g" },
-    color: "#57534e",
-    cardColor: "bg-stone-300/60",
-  },
-];
+import { apiService } from "../services/api.js";
+import {
+  transformProducts,
+  transformGrains,
+  getUniqueCategories,
+} from "../utils/dataTransform.js";
 
-export const productsData = [
-  {
-    id: 101,
-    name: "Kachi Ghani Mustard Oil",
-    price: 180,
-    unit: "1L",
-    image: "https://placehold.co/200x200/ffdb58/FFFFFF?text=Oil",
-    category: "Oils & Ghee",
-  },
-  {
-    id: 102,
-    name: "Tata Salt",
-    price: 25,
-    unit: "1kg",
-    image: "https://placehold.co/200x200/f0f8ff/000000?text=Salt",
-    category: "Spices",
-  },
-  {
-    id: 103,
-    name: "Lays Classic Chips",
-    price: 20,
-    unit: "52g",
-    image: "https://placehold.co/200x200/ffd700/FFFFFF?text=Lays",
-    category: "Snacks",
-  },
-  {
-    id: 104,
-    name: "Amul Ghee",
-    price: 550,
-    unit: "1L",
-    image: "https://placehold.co/200x200/fff8dc/000000?text=Ghee",
-    category: "Oils & Ghee",
-  },
-  {
-    id: 105,
-    name: "Everest Turmeric Powder",
-    price: 60,
-    unit: "200g",
-    image: "https://placehold.co/200x200/ffc107/FFFFFF?text=Turmeric",
-    category: "Spices",
-  },
-  {
-    id: 106,
-    name: "Tata Sampann Toor Dal",
-    price: 150,
-    unit: "1kg",
-    image: "https://placehold.co/200x200/fada5e/FFFFFF?text=Dal",
-    category: "Pulses",
-  },
-  {
-    id: 107,
-    name: "Parle-G Biscuits",
-    price: 10,
-    unit: "79.9g",
-    image: "https://placehold.co/200x200/f5f5dc/000000?text=Parle-G",
-    category: "Snacks",
-  },
-];
+// Data loading functions
+export const loadGrainsData = async () => {
+  const apiGrains = await apiService.fetchGrains();
+  return transformGrains(apiGrains);
+};
+
+export const loadProductsData = async () => {
+  const apiProducts = await apiService.fetchProducts();
+  return transformProducts(apiProducts);
+};
+
+export const loadCategoriesData = async () => {
+  const apiProducts = await apiService.fetchProducts();
+  const transformedProducts = transformProducts(apiProducts);
+  return getUniqueCategories(transformedProducts);
+};

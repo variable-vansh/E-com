@@ -6,8 +6,8 @@ export const ProductCard = ({ product, quantity, onQuantityChange }) => (
       className="product-card-image"
     />
     <div className="product-card-content">
-      <p className="product-card-unit">{product.unit}</p>
       <h4 className="product-card-name">{product.name}</h4>
+      <p className="product-card-unit">{product.unit}</p>
       <p className="product-card-price">₹{product.price}</p>
     </div>
     <div className="product-card-controls">

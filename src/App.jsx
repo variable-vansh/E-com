@@ -1,8 +1,8 @@
 import React, { useState, useMemo, useCallback } from "react";
 import "./App.css";
 
-// Import data
-import { grainsData, productsData } from "./data/shopData";
+// Import custom hook for data management
+import { useShopData } from "./hooks/useShopData";
 
 // Import components
 import { Header } from "./components/Header";
@@ -10,12 +10,17 @@ import { AttaComposer } from "./components/AttaComposer";
 import { GeneralStore } from "./components/GeneralStore";
 import { Footer } from "./components/Footer";
 import { Cart } from "./components/Cart";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 export default function App() {
   const [customMix, setCustomMix] = useState({});
   const [cartMix, setCartMix] = useState({});
   const [cart, setCart] = useState({});
   const [isCartOpen, setIsCartOpen] = useState(false);
+
+  // Use the custom hook to load data
+  const { grainsData, productsData, categoriesData, loading, error } =
+    useShopData();
 
   const handleMixChange = useCallback((grainId, action) => {
     setCustomMix((prevMix) => {
@@ -71,37 +76,71 @@ export default function App() {
   }, [cart, cartMix]);
 
   return (
-    <div className="app">
-      <div className="bg-gradient"></div>
-      <div className="app-layout">
-        <div className="app-main-content">
-          <Header cartItemCount={cartItemCount} onCartClick={toggleCart} />
-          <main className="app-main">
-            <AttaComposer
-              customMix={customMix}
-              onMixChange={handleMixChange}
-              onAddToCart={handleAddMixToCart}
-              grainsData={grainsData}
-            />
-            <GeneralStore
-              products={productsData}
-              cart={cart}
-              onCartChange={handleCartChange}
-            />
-          </main>
-          <Footer />
+    <ErrorBoundary>
+      <div className="app">
+        <div className="bg-gradient"></div>
+        <div className="app-layout">
+          <div className="app-main-content">
+            <Header cartItemCount={cartItemCount} onCartClick={toggleCart} />
+            {loading ? (
+              <div
+                className="loading-container"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  minHeight: "400px",
+                  fontSize: "18px",
+                }}
+              >
+                Loading products...
+              </div>
+            ) : error ? (
+              <div
+                className="error-container"
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  minHeight: "400px",
+                  fontSize: "18px",
+                  color: "#dc3545",
+                }}
+              >
+                <p>Error loading data: {error}</p>
+                <p>Using offline data instead.</p>
+              </div>
+            ) : (
+              <main className="app-main">
+                <AttaComposer
+                  customMix={customMix}
+                  onMixChange={handleMixChange}
+                  onAddToCart={handleAddMixToCart}
+                  grainsData={grainsData}
+                />
+                <GeneralStore
+                  products={productsData}
+                  categories={categoriesData}
+                  cart={cart}
+                  onCartChange={handleCartChange}
+                />
+              </main>
+            )}
+            <Footer />
+          </div>
+          <Cart
+            isOpen={isCartOpen}
+            onClose={toggleCart}
+            cart={cart}
+            cartMix={cartMix}
+            onCartChange={handleCartChange}
+            onMixRemove={handleRemoveMixFromCart}
+            grainsData={grainsData}
+            productsData={productsData}
+          />
         </div>
-        <Cart
-          isOpen={isCartOpen}
-          onClose={toggleCart}
-          cart={cart}
-          cartMix={cartMix}
-          onCartChange={handleCartChange}
-          onMixRemove={handleRemoveMixFromCart}
-          grainsData={grainsData}
-          productsData={productsData}
-        />
       </div>
-    </div>
+    </ErrorBoundary>
   );
 }
