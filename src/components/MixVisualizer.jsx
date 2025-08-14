@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import "../styles/MixVisualizer.css";
 
 export const MixVisualizer = ({ mix, grains }) => {
   const { totalWeight, mixItems } = useMemo(() => {

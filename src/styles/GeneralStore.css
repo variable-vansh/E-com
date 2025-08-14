@@ -1,4 +1,166 @@
 /* GeneralStore Component Styles */
+.shop-section {
+  background-color: #ffffff;
+  padding: 3rem 2rem;
+  border-radius: 12px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  margin: 2rem auto;
+  max-width: 1400px;
+}
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .shop-section {
+    padding: 2rem 1rem;
+    margin: 1rem auto;
+    border-radius: 8px;
+  }
+}
+
+.shop-section h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #333;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 280px));
+  gap: 3rem;
+  justify-content: center;
+}
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .shop-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+}
+
+.shop-item {
+  background-color: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  width: 80%;
+  max-width: 280px;
+  position: relative;
+  overflow: hidden;
+}
+
+.shop-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #4caf50, #45a049);
+}
+
+.shop-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.shop-item-image {
+  width: 100%;
+  height: 160px;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6c757d;
+  font-size: 3rem;
+  border: 2px solid #e9ecef;
+  transition: all 0.3s ease;
+}
+
+.shop-item:hover .shop-item-image {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #e9ecef, #dee2e6);
+}
+
+.shop-item h3 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.shop-item p {
+  margin: 0 0 1rem 0;
+  color: #6c757d;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  height: 2.8rem;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.shop-item-price {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #4caf50;
+  margin-bottom: 1rem;
+  text-align: center;
+  padding: 0.4rem;
+  background: linear-gradient(
+    135deg,
+    rgba(76, 175, 80, 0.1),
+    rgba(69, 160, 73, 0.1)
+  );
+  border-radius: 8px;
+  border: 1px solid rgba(76, 175, 80, 0.2);
+}
+
+.shop-item-button {
+  width: 100%;
+  background: linear-gradient(135deg, #4caf50, #45a049);
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.shop-item-button:hover {
+  background: linear-gradient(135deg, #45a049, #3d8b40);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
+
+.shop-item-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+}
+
+/* Mobile responsive button styles */
+@media (max-width: 768px) {
+  .shop-item-button {
+    padding: 12px 20px;
+    font-size: 0.95rem;
+  }
+}
 .general-store {
   margin-bottom: 3rem;
 }

@@ -4,6 +4,7 @@ import { CartProductItem } from "./CartProductItem";
 import { DeliveryDetails } from "./DeliveryDetails";
 import { CartSummary } from "./CartSummary";
 import { useCartCalculations } from "./hooks/useCartCalculations";
+import "../styles/Cart.css";
 
 export const Cart = ({
   isOpen,

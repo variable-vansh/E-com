@@ -1,3 +1,5 @@
+import "../styles/ProductCard.css";
+
 export const ProductCard = ({ product, quantity, onQuantityChange }) => (
   <div className="product-card">
     <img

@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { ProductCard } from "./ProductCard";
 import { SearchIcon } from "./Icons";
+import "../styles/GeneralStore.css";
 
 export const GeneralStore = ({ products, categories, cart, onCartChange }) => {
   const [category, setCategory] = useState("All");

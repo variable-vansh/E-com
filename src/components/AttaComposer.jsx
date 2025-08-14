@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { GrainCard } from "./GrainCard";
 import { MixVisualizer } from "./MixVisualizer";
 import { ChevronDownIcon } from "./Icons";
+import "../styles/AttaComposer.css";
 
 export const AttaComposer = ({
   customMix,

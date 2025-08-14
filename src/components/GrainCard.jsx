@@ -1,3 +1,5 @@
+import "../styles/GrainCard.css";
+
 export const GrainCard = ({
   grain,
   quantity,

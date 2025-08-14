@@ -1,4 +1,5 @@
 import { SeedlingIcon, LocationIcon, CartIcon } from "./Icons";
+import "../styles/Header.css";
 
 export const Header = ({ cartItemCount, onCartClick }) => (
   <header className="header">
