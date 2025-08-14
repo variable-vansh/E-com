@@ -1,8 +1,18 @@
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback, useEffect } from "react";
 import "./App.css";
 
 // Import custom hook for data management
 import { useShopData } from "./hooks/useShopData";
+
+// Import localStorage utilities
+import {
+  loadCartFromStorage,
+  loadCartMixFromStorage,
+  saveCartToStorage,
+  saveCartMixToStorage,
+  cleanInvalidCartItems,
+  cleanInvalidMixItems,
+} from "./utils/localStorage";
 
 // Import components
 import { Header } from "./components/Header";
@@ -14,13 +24,43 @@ import ErrorBoundary from "./components/ErrorBoundary";
 
 export default function App() {
   const [customMix, setCustomMix] = useState({});
-  const [cartMix, setCartMix] = useState({});
-  const [cart, setCart] = useState({});
+  const [cartMix, setCartMix] = useState(() => loadCartMixFromStorage());
+  const [cart, setCart] = useState(() => loadCartFromStorage());
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   // Use the custom hook to load data
   const { grainsData, productsData, categoriesData, loading, error } =
     useShopData();
+
+  // Save cart to localStorage whenever it changes
+  useEffect(() => {
+    saveCartToStorage(cart);
+  }, [cart]);
+
+  // Save cartMix to localStorage whenever it changes
+  useEffect(() => {
+    saveCartMixToStorage(cartMix);
+  }, [cartMix]);
+
+  // Clean invalid cart items when product data is loaded
+  useEffect(() => {
+    if (productsData?.length > 0) {
+      const cleanedCart = cleanInvalidCartItems(cart, productsData);
+      if (JSON.stringify(cleanedCart) !== JSON.stringify(cart)) {
+        setCart(cleanedCart);
+      }
+    }
+  }, [productsData, cart]);
+
+  // Clean invalid mix items when grains data is loaded
+  useEffect(() => {
+    if (grainsData?.length > 0) {
+      const cleanedMix = cleanInvalidMixItems(cartMix, grainsData);
+      if (JSON.stringify(cleanedMix) !== JSON.stringify(cartMix)) {
+        setCartMix(cleanedMix);
+      }
+    }
+  }, [grainsData, cartMix]);
 
   const handleMixChange = useCallback((grainId, action) => {
     setCustomMix((prevMix) => {

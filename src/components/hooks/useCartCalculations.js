@@ -8,6 +8,18 @@ export const useCartCalculations = (
   productsData
 ) => {
   return useMemo(() => {
+    // Return default values if data isn't loaded yet
+    if (!grainsData?.length || !productsData?.length) {
+      return {
+        itemTotalPrice: 0,
+        deliveryFee: 0,
+        grandTotal: 0,
+        isPayButtonDisabled: true,
+        hasItems: false,
+        isAddressFilled: false,
+      };
+    }
+
     let total = 0;
 
     // Calculate mix price
@@ -15,6 +27,7 @@ export const useCartCalculations = (
     if (mixInCart) {
       total += Object.keys(cartMix).reduce((sum, id) => {
         const grain = grainsData.find((g) => g.id == id);
+        if (!grain) return sum; // Skip if grain not found
         return sum + cartMix[id] * grain.price;
       }, 0);
     }
@@ -22,6 +35,7 @@ export const useCartCalculations = (
     // Calculate products price
     total += Object.keys(cart).reduce((sum, id) => {
       const product = productsData.find((p) => p.id == id);
+      if (!product) return sum; // Skip if product not found
       return sum + cart[id] * product.price;
     }, 0);
 

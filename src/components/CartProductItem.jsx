@@ -24,31 +24,67 @@ export const CartProductItem = ({ product, quantity, onQuantityChange }) => {
   return (
     <>
       <div className="cart-item">
-        <div className="cart-item-header">
-          <h3>{product.name}</h3>
-          <span className="cart-item-price">
-            ₹{(product.price * quantity).toFixed(2)}
-          </span>
+        <div className="product-img">
+          <img
+            src={product.image}
+            alt={product.name}
+            className="product-card-image"
+          />
         </div>
-        <div className="cart-item-details">
-          <div className="product-info">
-            <span className="product-unit">{product.unit}</span>
-            <span className="product-unit-price">
-              ₹{product.price} per {product.unit}
+        <div className="product-text">
+          <div className="product-text-left">
+            <h3>{product.name}</h3>
+            <div className="product-info">
+              <span className="product-unit">
+                ₹{product.price} per {product.unit}
+              </span>
+            </div>
+          </div>
+          <div className="product-text-right">
+            <span className="cart-item-price">
+              ₹{(product.price * quantity).toFixed(2)}
             </span>
+            <div className="quantity-controls">
+              <button className="quantity-btn" onClick={handleDecrease}>
+                −
+              </button>
+              <span className="quantity">{quantity}</span>
+              <button
+                className="quantity-btn"
+                onClick={() => onQuantityChange(product.id, "increase")}
+              >
+                +
+              </button>
+            </div>
           </div>
-          <div className="quantity-controls">
-            <button className="quantity-btn" onClick={handleDecrease}>
-              −
-            </button>
-            <span className="quantity">{quantity}</span>
-            <button
-              className="quantity-btn"
-              onClick={() => onQuantityChange(product.id, "increase")}
-            >
-              +
-            </button>
-          </div>
+          {
+            // <div className="cart-item-header">
+            //   <h3>{product.name}</h3>
+            //   <span className="cart-item-price">
+            //     ₹{(product.price * quantity).toFixed(2)}
+            //   </span>
+            // </div>
+            /* <div className="cart-item-details">
+            <div className="product-info">
+              <span className="product-unit">{product.unit}</span>
+              <span className="product-unit-price">
+                ₹{product.price} per {product.unit}
+              </span>
+            </div>
+            <div className="quantity-controls">
+              <button className="quantity-btn" onClick={handleDecrease}>
+                −
+              </button>
+              <span className="quantity">{quantity}</span>
+              <button
+                className="quantity-btn"
+                onClick={() => onQuantityChange(product.id, "increase")}
+              >
+                +
+              </button>
+            </div>
+          </div> */
+          }
         </div>
       </div>
       {showConfirmation && (

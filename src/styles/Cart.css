@@ -82,9 +82,9 @@
 }
 
 .cart-header {
-  padding: 1.5rem 1rem;
+  padding: 1rem 1.5rem;
   border-bottom: 1px solid #e9ecef;
-  background-color: #f8f9fa;
+  background-color: #fde69866;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -92,8 +92,8 @@
 
 .cart-title {
   margin: 0;
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-size: 1.7rem;
+  font-weight: 700;
   color: #333;
 }
 
@@ -121,12 +121,6 @@
   border-bottom: 2px solid #f8f9fa;
 }
 
-.cart-footer {
-  border-top: 1px solid #e9ecef;
-  background-color: #f8f9fa;
-  padding: 1rem;
-}
-
 .cart-empty-message {
   text-align: center;
   color: #6c757d;
@@ -138,12 +132,54 @@
 .cart-item {
   background-color: #ffffff;
   border: 1px solid #e9ecef;
-  padding: 1rem;
+  padding: 0.2rem;
   margin-bottom: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   transform: translateY(0);
   animation: slideInUp 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+
+  display: flex;
+  gap: 1rem;
+
+  max-height: 8rem;
+}
+
+.cart-item img {
+  width: 80px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 0px;
+}
+
+.product-text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.product-text-left {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.product-text-right {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product-text-left h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
 }
 
 @keyframes slideInUp {
@@ -434,8 +470,8 @@
 }
 
 .quantity-btn {
-  width: 32px;
-  height: 32px;
+  width: 25px;
+  height: 25px;
   border: 1px solid #dee2e6;
   border-radius: 4px;
   background-color: #ffffff;
@@ -485,185 +521,182 @@
   color: #721c24;
 }
 
-/* Delivery Details Styles */
-.delivery-details {
+/* Bill Details Styles */
+.bill-details {
   background-color: #ffffff;
   border: 1px solid #e9ecef;
   border-radius: 8px;
-  margin-bottom: 1rem;
-  overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
-.delivery-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding: 1rem;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  position: relative;
+  margin-bottom: 1rem;
 }
 
-.delivery-header:hover {
-  background-color: #f8f9fa;
-  transform: translateY(-1px);
-}
-
-.delivery-header::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #4caf50, transparent);
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
-}
-
-.delivery-header:hover::after {
-  transform: scaleX(1);
-}
-
-.delivery-header h3 {
-  margin: 0;
-  font-size: 1rem;
+.bill-details h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
   font-weight: 600;
   color: #333;
-  transition: color 0.3s ease;
 }
 
-.delivery-header:hover h3 {
-  color: #4caf50;
-}
-
-.expand-icon {
-  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-  color: #6c757d;
-  font-size: 1.2rem;
-}
-
-.expand-icon.expanded {
-  transform: rotate(180deg);
-  color: #4caf50;
-}
-
-.delivery-form {
-  padding: 0 1rem 1rem 1rem;
-  max-height: 0;
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-  opacity: 0;
-  transform: translateY(-10px);
-}
-
-.delivery-form.expanded {
-  max-height: 300px;
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.form-group {
-  margin-bottom: 1rem;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #333;
-}
-
-.form-group input,
-.form-group textarea {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #dee2e6;
-  border-radius: 6px;
-  font-size: 0.875rem;
-  background-color: #ffffff;
-  color: #333;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  box-sizing: border-box;
-  transform: translateY(0);
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: #4caf50;
-  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
-  transform: translateY(-1px);
-}
-
-.form-group input:hover,
-.form-group textarea:hover {
-  border-color: #4caf50;
-  transform: translateY(-1px);
-}
-
-.form-group textarea {
-  resize: vertical;
-  min-height: 80px;
-}
-
-.form-row {
-  display: flex;
-  gap: 1rem;
-}
-
-.form-row .form-group {
-  flex: 1;
-}
-
-/* Cart Summary Styles */
-.cart-summary {
-  background-color: #ffffff;
-  border: 1px solid #e9ecef;
-  border-radius: 8px;
-  padding: 1rem;
-}
-
-.summary-row {
+.bill-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.75rem;
-  font-size: 0.875rem;
+  font-size: 0.95rem;
 }
 
-.summary-row span:first-child {
+.bill-row span:first-child {
   color: #6c757d;
 }
 
-.summary-row span:last-child {
-  font-weight: 600;
+.bill-row span:last-child {
+  font-weight: 500;
   color: #333;
 }
 
-.total-row {
+.bill-row.total-row {
   border-top: 1px solid #e9ecef;
   padding-top: 0.75rem;
   margin-top: 0.75rem;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 600;
 }
 
-.total-row span {
+.bill-row.total-row span {
   color: #333;
   font-weight: 700;
 }
 
+.discount-row span:last-child {
+  color: #28a745;
+}
+
+/* Sticky Bottom Section */
+.cart-sticky-bottom {
+  position: sticky;
+  bottom: 0;
+  background: linear-gradient(135deg, #4caf50, #45a049);
+  padding: 1rem;
+  border-top: 1px solid #e9ecef;
+  z-index: 10;
+}
+
+.sticky-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sticky-total {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.sticky-pay-button {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.sticky-pay-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-1px);
+}
+
+.sticky-pay-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Bill Details Styles */
+.bill-details {
+  background-color: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+
+.bill-details-header {
+  margin-bottom: 1rem;
+}
+
+.bill-details-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.bill-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.bill-row span:first-child {
+  color: #6c757d;
+}
+
+.bill-row span:last-child {
+  font-weight: 600;
+  color: #333;
+}
+
+.bill-row.total-row {
+  border-top: 2px solid #e9ecef;
+  padding-top: 0.75rem;
+  margin-top: 0.75rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.bill-row.total-row span {
+  color: #4caf50;
+  font-weight: 700;
+}
+
+.bill-row.discount {
+  color: #28a745;
+}
+
+.bill-row.discount span:last-child {
+  color: #28a745;
+}
+
+/* Sticky Payment Section */
+.sticky-payment {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #ffffff;
+  border-top: 2px solid #e9ecef;
+  padding: 1rem;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
 .pay-button {
   width: 100%;
-  padding: 0.875rem;
+  padding: 1rem 1.5rem;
   background: linear-gradient(135deg, #4caf50, #45a049);
   color: white;
   border: none;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -671,6 +704,20 @@
   letter-spacing: 0.5px;
   box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
   transform: translateY(0);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pay-button-total {
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-transform: none;
+}
+
+.pay-button-text {
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
 .pay-button:not(:disabled) {

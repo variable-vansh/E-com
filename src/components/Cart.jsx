@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { CartMixItem } from "./CartMixItem";
 import { CartProductItem } from "./CartProductItem";
-import { DeliveryDetails } from "./DeliveryDetails";
-import { CartSummary } from "./CartSummary";
+import { BillDetails } from "./BillDetails";
+import { StickyPayment } from "./StickyPayment";
 import { useCartCalculations } from "./hooks/useCartCalculations";
 import "../styles/Cart.css";
 
@@ -71,33 +71,37 @@ export const Cart = ({
               grainsData={grainsData}
             />
           )}
-          {Object.keys(cart).map((id) => (
-            <CartProductItem
-              key={id}
-              product={productsData.find((p) => p.id == id)}
-              quantity={cart[id]}
-              onQuantityChange={onCartChange}
-            />
-          ))}
+
+          {Object.keys(cart).map((id) => {
+            const product = productsData.find((p) => p.id == id);
+            if (!product) return null; // Skip rendering if product not found
+            return (
+              <CartProductItem
+                key={id}
+                product={product}
+                quantity={cart[id]}
+                onQuantityChange={onCartChange}
+              />
+            );
+          })}
           {Object.keys(cartMix).length === 0 &&
             Object.keys(cart).length === 0 && (
               <p className="cart-empty-message">Your cart is empty.</p>
             )}
-        </div>{" "}
-        <div className="cart-footer">
-          <DeliveryDetails
-            addressDetails={addressDetails}
-            onAddressChange={handleAddressChange}
-          />{" "}
-          <CartSummary
-            itemTotalPrice={itemTotalPrice}
-            deliveryFee={deliveryFee}
-            grandTotal={grandTotal}
-            isPayButtonDisabled={isPayButtonDisabled}
-            hasItems={hasItems}
-            isAddressFilled={isAddressFilled}
-          />
+
+          {/* Bill Details Section */}
+          {hasItems && (
+            <BillDetails
+              itemTotalPrice={itemTotalPrice}
+              deliveryFee={deliveryFee}
+              discount={20}
+              grandTotal={grandTotal}
+            />
+          )}
         </div>
+
+        {/* Sticky Payment Section */}
+        <StickyPayment grandTotal={grandTotal} hasItems={hasItems} />
       </div>
     </>
   );
