@@ -6,20 +6,20 @@ export const AddressForm = ({
   isAddressView,
   addressDetails,
   onAddressChange,
-  onBack,
+  grandTotal,
 }) => {
   return (
     <div className={`address-form-container ${isAddressView ? "visible" : ""}`}>
       <div className="address-form-header">
-        <button onClick={onBack} className="back-button">
-          &larr; Back to Cart
-        </button>
-        <h3>Delivery Address</h3>
+        <h3 style={{ marginLeft: "auto", marginRight: "auto" }}>
+          Delivery Address
+        </h3>
       </div>
       <div className="address-form-content">
         <DeliveryDetails
           addressDetails={addressDetails}
           onAddressChange={onAddressChange}
+          grandTotal={grandTotal}
         />
       </div>
     </div>

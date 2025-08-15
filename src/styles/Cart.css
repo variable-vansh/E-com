@@ -86,7 +86,23 @@
 }
 
 .cart-container.closing {
-  animation: slideOut 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  animation: slideOutEnhanced 0.38s cubic-bezier(0.55, 0.06, 0.68, 0.19)
+    forwards;
+}
+
+@keyframes slideOutEnhanced {
+  0% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+  60% {
+    transform: translateX(5%) scale(0.97);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateX(110%) scale(0.9);
+    opacity: 0;
+  }
 }
 
 .cart-header {
@@ -199,6 +215,22 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.cart-content.expanded-view {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cart-items-column {
+  flex: 1;
+  padding-right: 1rem;
+}
+
+.bill-details-column {
+  flex: 1;
+  padding-left: 1rem;
+  border-left: 1px solid #e9ecef;
 }
 
 .cart-item:hover {
@@ -682,6 +714,95 @@
 
 .bill-row.discount span:last-child {
   color: #28a745;
+}
+
+/* Receipt styling enhancements */
+.receipt-card {
+  position: relative;
+  background: #fffefc;
+  border: 1px solid #e5d9c7;
+  box-shadow: 0 4px 14px -6px rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+  padding: 1.15rem 1.15rem 1.35rem;
+  overflow: hidden;
+}
+.receipt-card::before,
+.receipt-card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background-size: 16px 16px;
+  background-repeat: repeat-x;
+  pointer-events: none;
+}
+.receipt-card::before {
+  top: 0;
+  background-image: radial-gradient(
+      circle at 8px 6px,
+      #fff 6px,
+      transparent 7px
+    ),
+    linear-gradient(#f4eadb, #f4eadb);
+  background-blend-mode: normal;
+}
+.receipt-card::after {
+  bottom: 0;
+  background-image: radial-gradient(
+      circle at 8px 6px,
+      #fff 6px,
+      transparent 7px
+    ),
+    linear-gradient(#f4eadb, #f4eadb);
+}
+.receipt-header {
+  text-align: center;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 2px dashed #e2d2b7;
+}
+.receipt-header h3 {
+  font-family: system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.bill-rows-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.receipt-row {
+  font-size: 0.9rem;
+  position: relative;
+}
+.receipt-row:not(.receipt-total)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0));
+}
+.receipt-total {
+  margin-top: 0.4rem;
+  border-top: 2px dashed #e2d2b7;
+  padding-top: 0.65rem !important;
+}
+.receipt-total span:last-child {
+  color: #1f6f2a !important;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+.receipt-footer-note {
+  margin-top: 0.85rem;
+  font-size: 0.65rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: #a18647;
+  opacity: 0.9;
 }
 
 /* Sticky Payment Section */

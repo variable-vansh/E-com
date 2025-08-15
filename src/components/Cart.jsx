@@ -4,6 +4,7 @@ import { CartProductItem } from "./CartProductItem";
 import { BillDetails } from "./BillDetails";
 import { StickyPayment } from "./StickyPayment";
 import { useCartCalculations } from "./hooks/useCartCalculations";
+import { DeliveryDetails } from "./DeliveryDetails"; // still used if embedding kept
 import { AddressForm } from "./AddressForm";
 import "../styles/Cart.css";
 
@@ -58,9 +59,7 @@ export const Cart = ({
     }
   };
 
-  const handleBackToCart = () => {
-    setIsAddressView(false);
-  };
+  // Back to cart removed per new requirement; address view persists until cart closed
 
   if (!isOpen) return null;
   return (
@@ -80,55 +79,62 @@ export const Cart = ({
             ×
           </button>
         </div>
-        <div className="cart-content">
-          {Object.keys(cartMix).length > 0 && (
-            <CartMixItem
-              mix={cartMix}
-              onRemove={onMixRemove}
-              grainsData={grainsData}
-            />
-          )}
-
-          {Object.keys(cart).map((id) => {
-            const product = productsData.find((p) => p.id == id);
-            if (!product) return null; // Skip rendering if product not found
-            return (
-              <CartProductItem
-                key={id}
-                product={product}
-                quantity={cart[id]}
-                onQuantityChange={onCartChange}
+        <div className={`cart-content ${isAddressView ? "expanded-view" : ""}`}>
+          <div className="cart-items-column">
+            {Object.keys(cartMix).length > 0 && (
+              <CartMixItem
+                mix={cartMix}
+                onRemove={onMixRemove}
+                grainsData={grainsData}
               />
-            );
-          })}
-          {Object.keys(cartMix).length === 0 &&
-            Object.keys(cart).length === 0 && (
-              <p className="cart-empty-message">Your cart is empty.</p>
             )}
+
+            {Object.keys(cart).map((id) => {
+              const product = productsData.find((p) => p.id == id);
+              if (!product) return null; // Skip rendering if product not found
+              return (
+                <CartProductItem
+                  key={id}
+                  product={product}
+                  quantity={cart[id]}
+                  onQuantityChange={onCartChange}
+                />
+              );
+            })}
+            {Object.keys(cartMix).length === 0 &&
+              Object.keys(cart).length === 0 && (
+                <p className="cart-empty-message">Your cart is empty.</p>
+              )}
+          </div>
 
           {/* Bill Details Section */}
           {hasItems && (
-            <BillDetails
-              itemTotalPrice={itemTotalPrice}
-              deliveryFee={deliveryFee}
-              discount={20}
-              grandTotal={grandTotal}
-            />
+            <div className="bill-details-column">
+              <BillDetails
+                itemTotalPrice={itemTotalPrice}
+                deliveryFee={deliveryFee}
+                discount={20}
+                grandTotal={grandTotal}
+              />
+              {/* Contact moved back to separate Delivery panel; keep bill clean */}
+            </div>
           )}
         </div>
 
         {/* Sticky Payment Section */}
-        <StickyPayment
-          grandTotal={grandTotal}
-          hasItems={hasItems}
-          onPayClick={handleProceedToAddress}
-        />
+        {!isAddressView && (
+          <StickyPayment
+            grandTotal={grandTotal}
+            hasItems={hasItems}
+            onPayClick={handleProceedToAddress}
+          />
+        )}
       </div>
       <AddressForm
         isAddressView={isAddressView}
         addressDetails={addressDetails}
         onAddressChange={handleAddressChange}
-        onBack={handleBackToCart}
+        grandTotal={grandTotal}
       />
     </>
   );
