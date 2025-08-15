@@ -1,8 +1,4 @@
-export const StickyPayment = ({
-  grandTotal,
-  hasItems = false,
-  onPayClick,
-}) => {
+export const StickyPayment = ({ grandTotal, hasItems = false, onPayClick }) => {
   const getButtonText = () => {
     if (!hasItems) return "Cart is Empty";
     return "Add Address and Pay";
