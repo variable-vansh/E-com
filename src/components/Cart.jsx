@@ -4,6 +4,7 @@ import { CartProductItem } from "./CartProductItem";
 import { BillDetails } from "./BillDetails";
 import { StickyPayment } from "./StickyPayment";
 import { useCartCalculations } from "./hooks/useCartCalculations";
+import { AddressForm } from "./AddressForm";
 import "../styles/Cart.css";
 
 export const Cart = ({
@@ -17,6 +18,7 @@ export const Cart = ({
   productsData,
 }) => {
   const [isClosing, setIsClosing] = useState(false);
+  const [isAddressView, setIsAddressView] = useState(false);
   const [addressDetails, setAddressDetails] = useState({
     address: "",
     pincode: "",
@@ -46,7 +48,18 @@ export const Cart = ({
     setTimeout(() => {
       onClose();
       setIsClosing(false);
+      setIsAddressView(false); // Reset on close
     }, 400);
+  };
+
+  const handleProceedToAddress = () => {
+    if (hasItems) {
+      setIsAddressView(true);
+    }
+  };
+
+  const handleBackToCart = () => {
+    setIsAddressView(false);
   };
 
   if (!isOpen) return null;
@@ -56,7 +69,11 @@ export const Cart = ({
         className={`cart-overlay ${isClosing ? "closing" : ""}`}
         onClick={handleClose}
       />
-      <div className={`cart-container ${isClosing ? "closing" : ""}`}>
+      <div
+        className={`cart-container ${isClosing ? "closing" : ""} ${
+          isAddressView ? "address-view" : ""
+        }`}
+      >
         <div className="cart-header">
           <h2 className="cart-title">Your Cart</h2>
           <button className="cart-close-btn" onClick={handleClose}>
@@ -101,8 +118,18 @@ export const Cart = ({
         </div>
 
         {/* Sticky Payment Section */}
-        <StickyPayment grandTotal={grandTotal} hasItems={hasItems} />
+        <StickyPayment
+          grandTotal={grandTotal}
+          hasItems={hasItems}
+          onPayClick={handleProceedToAddress}
+        />
       </div>
+      <AddressForm
+        isAddressView={isAddressView}
+        addressDetails={addressDetails}
+        onAddressChange={handleAddressChange}
+        onBack={handleBackToCart}
+      />
     </>
   );
 };

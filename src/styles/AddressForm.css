@@ -1,0 +1,63 @@
+.address-form-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 30vw;
+  min-width: 400px;
+  max-width: 500px;
+  height: 100vh;
+  background-color: #ffffff;
+  z-index: 1001; /* Above cart */
+  box-shadow: -2px 0 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.address-form-container.visible {
+  transform: translateY(0);
+}
+
+.address-form-header {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #e9ecef;
+  background-color: #fde69866;
+}
+
+.address-form-header h3 {
+  margin: 0;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #333;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.back-button {
+  background: none;
+  border: 1px solid transparent;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #333;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.back-button:hover {
+  background-color: #e9ecef;
+}
+
+.address-form-content {
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .address-form-container {
+    width: 100vw;
+    min-width: unset;
+    max-width: unset;
+  }
+}
