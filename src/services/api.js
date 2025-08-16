@@ -61,6 +61,27 @@ class ApiService {
       return [];
     }
   }
+
+  async submitOrder(orderData) {
+    try {
+      const response = await this.fetchWithTimeout(`${API_BASE_URL}/orders`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Error submitting order:", error);
+      throw error;
+    }
+  }
 }
 
 export const apiService = new ApiService();

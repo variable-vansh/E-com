@@ -4,7 +4,6 @@ import { CartProductItem } from "./CartProductItem";
 import { BillDetails } from "./BillDetails";
 import { StickyPayment } from "./StickyPayment";
 import { useCartCalculations } from "./hooks/useCartCalculations";
-import { DeliveryDetails } from "./DeliveryDetails"; // still used if embedding kept
 import { AddressForm } from "./AddressForm";
 import "../styles/Cart.css";
 
@@ -135,6 +134,10 @@ export const Cart = ({
         addressDetails={addressDetails}
         onAddressChange={handleAddressChange}
         grandTotal={grandTotal}
+        cart={cart}
+        cartMix={cartMix}
+        grainsData={grainsData}
+        productsData={productsData}
       />
     </>
   );

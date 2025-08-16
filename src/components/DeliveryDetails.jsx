@@ -1,13 +1,21 @@
 import { useState, useEffect, useRef } from "react";
+import { apiService } from "../services/api";
 
 // Single compact layout for delivery info
 export const DeliveryDetails = ({
   addressDetails,
   onAddressChange,
   grandTotal = 0,
+  cart = {},
+  cartMix = {},
+  grainsData = [],
+  productsData = [],
 }) => {
   const [showOtpInputs, setShowOtpInputs] = useState(false);
   const [otpValues, setOtpValues] = useState(["", "", "", ""]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
   const otpRefs = useRef([]);
   const [manualFields, setManualFields] = useState({
     fullName: "",
@@ -65,6 +73,87 @@ export const DeliveryDetails = ({
   const handlePincodeChange = (e) => {
     const digitsOnly = e.target.value.replace(/\D/g, "").slice(0, 6);
     setManualFields((prev) => ({ ...prev, pincode: digitsOnly }));
+  };
+
+  const handleOrderSubmission = async () => {
+    if (!highlightPayment || isSubmitting) return;
+
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      // Prepare order data
+      const orderData = {
+        customerInfo: {
+          fullName: manualFields.fullName,
+          phone: manualFields.phone,
+          address: {
+            houseNumber: manualFields.houseNumber,
+            street: manualFields.street,
+            pincode: manualFields.pincode,
+            fullAddress: [
+              manualFields.houseNumber,
+              manualFields.street,
+              manualFields.pincode,
+            ]
+              .filter(Boolean)
+              .join(", "),
+          },
+        },
+        cartItems: Object.keys(cart).map((productId) => {
+          const product = productsData.find((p) => p.id == productId);
+          return {
+            productId: parseInt(productId),
+            productName: product?.name || "Unknown Product",
+            quantity: cart[productId],
+            price: product?.price || 0,
+            totalPrice: (product?.price || 0) * cart[productId],
+          };
+        }),
+        cartMix:
+          Object.keys(cartMix).length > 0
+            ? {
+                grains: Object.keys(cartMix).map((grainId) => {
+                  const grain = grainsData.find((g) => g.id == grainId);
+                  return {
+                    grainId: parseInt(grainId),
+                    grainName: grain?.name || "Unknown Grain",
+                    quantity: cartMix[grainId],
+                    price: grain?.price || 0,
+                    totalPrice: (grain?.price || 0) * cartMix[grainId],
+                  };
+                }),
+              }
+            : null,
+        pricing: {
+          itemTotal: grandTotal - 40, // Assuming delivery fee is 40
+          deliveryFee: 40,
+          discount: 20,
+          grandTotal: grandTotal,
+        },
+        orderTimestamp: new Date().toISOString(),
+        paymentStatus: "pending",
+        orderStatus: "confirmed",
+      };
+
+      console.log("Submitting order data:", orderData);
+
+      const response = await apiService.submitOrder(orderData);
+
+      console.log("Order submitted successfully:", response);
+      setSubmitSuccess(true);
+
+      // Optionally show success message or redirect
+      setTimeout(() => {
+        setSubmitSuccess(false);
+        // You might want to close the cart or redirect here
+      }, 3000);
+    } catch (error) {
+      console.error("Order submission failed:", error);
+      setSubmitError("Failed to submit order. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -167,6 +256,38 @@ export const DeliveryDetails = ({
           maxLength={6}
         />
       </div>
+      {submitError && (
+        <div
+          className="error-message"
+          style={{
+            color: "#dc3545",
+            backgroundColor: "#f8d7da",
+            border: "1px solid #f5c6cb",
+            borderRadius: "4px",
+            padding: "10px",
+            marginBottom: "10px",
+            fontSize: "14px",
+          }}
+        >
+          {submitError}
+        </div>
+      )}
+      {submitSuccess && (
+        <div
+          className="success-message"
+          style={{
+            color: "#155724",
+            backgroundColor: "#d4edda",
+            border: "1px solid #c3e6cb",
+            borderRadius: "4px",
+            padding: "10px",
+            marginBottom: "10px",
+            fontSize: "14px",
+          }}
+        >
+          Order submitted successfully!
+        </div>
+      )}
       <div
         className={`delivery-payment-bar sticky-bottom ${
           highlightPayment ? "active" : ""
@@ -174,10 +295,13 @@ export const DeliveryDetails = ({
       >
         <button
           type="button"
-          disabled={!highlightPayment}
+          disabled={!highlightPayment || isSubmitting}
           className="delivery-pay-btn"
+          onClick={handleOrderSubmission}
         >
-          {highlightPayment
+          {isSubmitting
+            ? "Processing..."
+            : highlightPayment
             ? `Pay ₹${grandTotal.toFixed(2)}`
             : "Fill details to enable payment"}
         </button>

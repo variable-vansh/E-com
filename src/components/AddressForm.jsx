@@ -1,4 +1,3 @@
-import React from "react";
 import { DeliveryDetails } from "./DeliveryDetails";
 import "../styles/AddressForm.css";
 
@@ -7,6 +6,10 @@ export const AddressForm = ({
   addressDetails,
   onAddressChange,
   grandTotal,
+  cart,
+  cartMix,
+  grainsData,
+  productsData,
 }) => {
   return (
     <div className={`address-form-container ${isAddressView ? "visible" : ""}`}>
@@ -20,6 +23,10 @@ export const AddressForm = ({
           addressDetails={addressDetails}
           onAddressChange={onAddressChange}
           grandTotal={grandTotal}
+          cart={cart}
+          cartMix={cartMix}
+          grainsData={grainsData}
+          productsData={productsData}
         />
       </div>
     </div>
