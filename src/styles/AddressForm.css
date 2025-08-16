@@ -93,11 +93,11 @@
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
-  margin-bottom: 0.75rem;
+  gap: 0.3rem;
+  margin-bottom: 0.6rem;
 }
 .form-group label {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: #555;
@@ -499,5 +499,118 @@
     width: 100vw;
     min-width: unset;
     max-width: unset;
+  }
+}
+
+/* Payment Method Selection Styles */
+.payment-method-section {
+  margin-bottom: 0.75rem;
+  padding-top: 0.25rem;
+}
+
+.payment-method-label {
+  margin-bottom: 0.5rem !important;
+  font-size: 0.75rem !important;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #555;
+  font-weight: 600;
+}
+
+.payment-options {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.payment-option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.payment-radio {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.payment-option-label {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+  padding: 0.5rem 0.75rem;
+  border: 2px solid #d0d5dd;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: #ffffff;
+}
+
+.payment-option-label:hover {
+  border-color: #f0b429;
+  background-color: #fffef9;
+}
+
+.payment-radio:checked + .payment-option-label {
+  border-color: #f0b429;
+  background-color: #fffbf0;
+  box-shadow: 0 0 0 2px #f0b42933;
+}
+
+.payment-option-label::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border: 2px solid #d0d5dd;
+  border-radius: 50%;
+  margin-right: 0.6rem;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.payment-radio:checked + .payment-option-label::before {
+  border-color: #f0b429;
+  background-color: #f0b429;
+  box-shadow: inset 0 0 0 3px #ffffff;
+}
+
+.payment-option-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.payment-option-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.payment-option-desc {
+  font-size: 0.7rem;
+  color: #666;
+  line-height: 1.2;
+}
+
+.payment-radio:checked + .payment-option-label .payment-option-title {
+  color: #5a4304;
+}
+
+.payment-radio:checked + .payment-option-label .payment-option-desc {
+  color: #8b6914;
+}
+
+/* Responsive design for payment options */
+@media (max-width: 480px) {
+  .payment-options {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .payment-option {
+    flex: none;
   }
 }

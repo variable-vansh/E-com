@@ -16,6 +16,7 @@ export const DeliveryDetails = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState("cod"); // "cod" for Cash on Delivery, "pay" for Pay Now
   const otpRefs = useRef([]);
   const [manualFields, setManualFields] = useState({
     fullName: "",
@@ -132,7 +133,8 @@ export const DeliveryDetails = ({
           grandTotal: grandTotal,
         },
         orderTimestamp: new Date().toISOString(),
-        paymentStatus: "pending",
+        paymentMethod: paymentMethod, // "cod" or "pay"
+        paymentStatus: paymentMethod === "cod" ? "cod_pending" : "pending",
         orderStatus: "confirmed",
       };
 
@@ -256,6 +258,52 @@ export const DeliveryDetails = ({
           maxLength={6}
         />
       </div>
+
+      {/* Payment Method Selection */}
+      <div className="form-group payment-method-section">
+        <label className="payment-method-label">Payment Method</label>
+        <div className="payment-options">
+          <div className="payment-option">
+            <input
+              type="radio"
+              id="cod"
+              name="paymentMethod"
+              value="cod"
+              checked={paymentMethod === "cod"}
+              onChange={(e) => setPaymentMethod(e.target.value)}
+              className="payment-radio"
+            />
+            <label htmlFor="cod" className="payment-option-label">
+              <div className="payment-option-content">
+                <span className="payment-option-title">Cash on Delivery</span>
+                <span className="payment-option-desc">
+                  Pay when order arrives
+                </span>
+              </div>
+            </label>
+          </div>
+          <div className="payment-option">
+            <input
+              type="radio"
+              id="pay"
+              name="paymentMethod"
+              value="pay"
+              checked={paymentMethod === "pay"}
+              onChange={(e) => setPaymentMethod(e.target.value)}
+              className="payment-radio"
+            />
+            <label htmlFor="pay" className="payment-option-label">
+              <div className="payment-option-content">
+                <span className="payment-option-title">Pay Now</span>
+                <span className="payment-option-desc">
+                  Secure online payment
+                </span>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+
       {submitError && (
         <div
           className="error-message"
@@ -302,7 +350,9 @@ export const DeliveryDetails = ({
           {isSubmitting
             ? "Processing..."
             : highlightPayment
-            ? `Pay ₹${grandTotal.toFixed(2)}`
+            ? paymentMethod === "cod"
+              ? `Confirm Order - ₹${grandTotal.toFixed(2)}`
+              : `Pay Now - ₹${grandTotal.toFixed(2)}`
             : "Fill details to enable payment"}
         </button>
       </div>
