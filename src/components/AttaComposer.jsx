@@ -21,7 +21,7 @@ export const AttaComposer = ({
     }, 0);
     return { totalWeight, totalPrice, canAddToCart: mixItems.length > 0 };
   }, [customMix, grainsData]);
-  const grainsToShow = isExpanded ? grainsData : grainsData.slice(0, 6);
+  const grainsToShow = isExpanded ? grainsData : grainsData.slice(0, 9);
   return (
     <section className="atta-composer">
       <div className="atta-composer-container">
@@ -42,11 +42,11 @@ export const AttaComposer = ({
                   quantity={customMix[grain.id] || 0}
                   onQuantityChange={onMixChange}
                   cardIndex={index}
-                  isVisible={index < 6 || isExpanded}
+                  isVisible={index < 9 || isExpanded}
                 />
               ))}
             </div>
-            {grainsData.length > 6 && (
+            {grainsData.length > 9 && (
               <div className="atta-composer-show-more">
                 <button
                   onClick={() => setIsExpanded(!isExpanded)}

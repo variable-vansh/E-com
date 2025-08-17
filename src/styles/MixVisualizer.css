@@ -127,64 +127,76 @@
 }
 
 /* Grain color variants for visualizer - lighter, more pastel colors */
-.mix-grain-wheat {
-  background-color: rgba(251, 191, 36, 0.4);
+.mix-grain-wheat-mp {
+  background-color: rgba(var(--grain-color-wheat-mp), 0.4);
   color: #1f2937;
-  border: 1px solid rgba(251, 191, 36, 0.6);
+  border: 1px solid rgba(var(--grain-color-wheat-mp), 0.6);
+}
+
+.mix-grain-wheat-punjab {
+  background-color: rgba(var(--grain-color-wheat-punjab), 0.4);
+  color: #1f2937;
+  border: 1px solid rgba(var(--grain-color-wheat-punjab), 0.6);
+}
+
+.mix-grain-jo {
+  background-color: rgba(var(--grain-color-jo), 0.4);
+  color: #1f2937;
+  border: 1px solid rgba(var(--grain-color-jo), 0.6);
 }
 
 .mix-grain-jowar {
-  background-color: rgba(251, 146, 60, 0.4);
+  background-color: rgba(var(--grain-color-jowar), 0.4);
   color: #1f2937;
-  border: 1px solid rgba(251, 146, 60, 0.6);
+  border: 1px solid rgba(var(--grain-color-jowar), 0.6);
 }
 
 .mix-grain-bajra {
-  background-color: rgba(168, 162, 158, 0.4);
+  background-color: rgba(var(--grain-color-bajra), 0.4);
   color: #1f2937;
-  border: 1px solid rgba(168, 162, 158, 0.6);
+  border: 1px solid rgba(var(--grain-color-bajra), 0.6);
 }
 
 .mix-grain-ragi {
-  background-color: rgba(244, 63, 94, 0.4);
+  background-color: rgba(var(--grain-color-ragi), 0.4);
   color: #1f2937;
-  border: 1px solid rgba(244, 63, 94, 0.6);
+  border: 1px solid rgba(var(--grain-color-ragi), 0.6);
 }
 
 .mix-grain-chana {
-  background-color: rgba(254, 240, 138, 0.5);
+  background-color: rgba(var(--grain-color-chana), 0.5);
   color: #1f2937;
-  border: 1px solid rgba(254, 240, 138, 0.7);
+  border: 1px solid rgba(var(--grain-color-chana), 0.7);
+}
+
+.mix-grain-kala-chana {
+  background-color: rgba(var(--grain-color-kala-chana), 0.5);
+  color: #1f2937;
+  border: 1px solid rgba(var(--grain-color-kala-chana), 0.7);
 }
 
 .mix-grain-makka {
-  background-color: rgba(251, 191, 36, 0.4);
+  background-color: rgba(var(--grain-color-makka), 0.4);
   color: #1f2937;
-  border: 1px solid rgba(251, 191, 36, 0.6);
+  border: 1px solid rgba(var(--grain-color-makka), 0.6);
 }
 
 .mix-grain-soyabean {
-  background-color: rgba(190, 242, 100, 0.4);
+  background-color: rgba(var(--grain-color-soyabean), 0.4);
   color: #1f2937;
-  border: 1px solid rgba(190, 242, 100, 0.6);
+  border: 1px solid rgba(var(--grain-color-soyabean), 0.6);
 }
 
 .mix-grain-oats {
-  background-color: rgba(148, 163, 184, 0.4);
+  background-color: rgba(var(--grain-color-oats), 0.4);
   color: #1f2937;
-  border: 1px solid rgba(148, 163, 184, 0.6);
-}
-
-.mix-grain-barley {
-  background-color: rgba(194, 120, 3, 0.4);
-  color: #1f2937;
-  border: 1px solid rgba(194, 120, 3, 0.6);
+  border: 1px solid rgba(var(--grain-color-oats), 0.6);
 }
 
 .mix-grain-kuttu {
-  background-color: rgba(120, 113, 108, 0.4);
+  background-color: rgba(var(--grain-color-kuttu), 0.4);
   color: #1f2937;
-  border: 1px solid rgba(120, 113, 108, 0.6);
+  border: 1px solid rgba(var(--grain-color-kuttu), 0.6);
 }
 
 /* Mobile responsive styles */

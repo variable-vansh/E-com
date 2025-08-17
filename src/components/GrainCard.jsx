@@ -1,3 +1,4 @@
+import { getGrainColorClass } from "../utils/colorUtils";
 import "../styles/GrainCard.css";
 
 export const GrainCard = ({
@@ -7,32 +8,16 @@ export const GrainCard = ({
   cardIndex = 0,
   isVisible = true,
 }) => {
-  const getCardColorClass = (grainName) => {
-    const colorMap = {
-      Wheat: "grain-card-wheat",
-      Jowar: "grain-card-jowar",
-      Bajra: "grain-card-bajra",
-      Ragi: "grain-card-ragi",
-      Chana: "grain-card-chana",
-      Makka: "grain-card-makka",
-      Soyabean: "grain-card-soyabean",
-      Oats: "grain-card-oats",
-      "Barley (Jau)": "grain-card-barley",
-      Kuttu: "grain-card-kuttu",
-    };
-    return colorMap[grainName] || "grain-card-wheat";
-  };
-
-  const isHiddenCard = cardIndex >= 6;
+  const isHiddenCard = cardIndex >= 9;
 
   return (
     <div
-      className={`grain-card ${getCardColorClass(grain.name)} ${
+      className={`grain-card ${getGrainColorClass(grain.name, "grain-card")} ${
         isHiddenCard ? "grain-card-hidden" : ""
       } ${isVisible ? "grain-card-visible" : ""}`}
       style={{
         "--card-index": cardIndex,
-        "--reveal-delay": isHiddenCard ? `${(cardIndex - 6) * 0.1}s` : "0s",
+        "--reveal-delay": isHiddenCard ? `${(cardIndex - 9) * 0.1}s` : "0s",
       }}
     >
       <img src={grain.image} alt={grain.name} className="grain-card-image" />

@@ -322,6 +322,10 @@
 }
 
 @media (min-width: 1024px) {
+  .atta-composer-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
   .atta-composer-content {
     flex-direction: row;
   }

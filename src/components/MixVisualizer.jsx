@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { getGrainColorClass } from "../utils/colorUtils";
 import "../styles/MixVisualizer.css";
 
 export const MixVisualizer = ({ mix, grains }) => {
@@ -7,22 +8,6 @@ export const MixVisualizer = ({ mix, grains }) => {
     const totalWeight = mixItems.reduce((sum, id) => sum + mix[id], 0);
     return { totalWeight, mixItems };
   }, [mix]);
-
-  const getGrainColorClass = (grainName) => {
-    const colorMap = {
-      Wheat: "mix-grain-wheat",
-      Jowar: "mix-grain-jowar",
-      Bajra: "mix-grain-bajra",
-      Ragi: "mix-grain-ragi",
-      Chana: "mix-grain-chana",
-      Makka: "mix-grain-makka",
-      Soyabean: "mix-grain-soyabean",
-      Oats: "mix-grain-oats",
-      "Barley (Jau)": "mix-grain-barley",
-      Kuttu: "mix-grain-kuttu",
-    };
-    return colorMap[grainName] || "mix-grain-wheat";
-  };
 
   if (mixItems.length === 0) {
     return (
@@ -38,7 +23,10 @@ export const MixVisualizer = ({ mix, grains }) => {
         return (
           <div
             key={id}
-            className={`mix-visualizer-grain ${getGrainColorClass(grain.name)}`}
+            className={`mix-visualizer-grain ${getGrainColorClass(
+              grain.name,
+              "mix-grain"
+            )}`}
             style={{ height: `${percentage}%` }}
           >
             {percentage > 10 && `${grain.name} ${percentage.toFixed(0)}%`}

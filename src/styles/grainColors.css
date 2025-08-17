@@ -1,0 +1,16 @@
+/* src/styles/grainColors.css */
+:root {
+  /* Base colors for each grain */
+  --grain-color-jo: 202, 138, 4; /* warm, golden-brown */
+  --grain-color-jowar: 190, 140, 108; /* light, creamy off-white */
+  --grain-color-kala-chana: 92, 64, 51; /* deep, earthy brown */
+  --grain-color-makka: 245, 158, 11; /* vibrant, sunny orange-yellow */
+  --grain-color-ragi: 179, 72, 72; /* rich, dark reddish-maroon */
+  --grain-color-soyabean: 250, 204, 21; /* pale, buttery yellow */
+  --grain-color-wheat-mp: 252, 211, 77; /* bright, golden wheat */
+  --grain-color-wheat-punjab: 251, 191, 36; /* deeper, amber wheat */
+  --grain-color-bajra: 168, 162, 158; /* greyish beige */
+  --grain-color-oats: 148, 163, 184; /* light grey */
+  --grain-color-kuttu: 120, 113, 108; /* dark greyish brown */
+  --grain-color-chana: 254, 240, 138; /* light yellow */
+}

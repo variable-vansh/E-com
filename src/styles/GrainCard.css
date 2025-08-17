@@ -14,95 +14,123 @@
   transform: translateY(-2px);
 }
 
-/* Grain card color variants - unique background colors for each grain */
-.grain-card-wheat {
+/* --- Grain Card Color Variants --- */
+/* Based on the visual appearance of each grain */
+
+/* Jo (Barley) - A warm, golden-brown hue */
+.grain-card-jo {
   background: linear-gradient(
     135deg,
-    rgba(251, 191, 36, 0.2) 0%,
-    rgba(251, 191, 36, 0.1) 100%
+    rgba(var(--grain-color-jo), 0.15) 0%,
+    rgba(var(--grain-color-jo), 0.05) 100%
   );
-  border-left: 4px solid rgba(251, 191, 36, 0.8);
+  border-left: 4px solid rgba(var(--grain-color-jo), 0.7);
 }
 
+/* Jowar (Sorghum) - A light, creamy off-white or stone color */
 .grain-card-jowar {
   background: linear-gradient(
     135deg,
-    rgba(251, 146, 60, 0.2) 0%,
-    rgba(251, 146, 60, 0.1) 100%
+    rgba(var(--grain-color-jowar), 0.3) 0%,
+    rgba(var(--grain-color-jowar), 0.15) 100%
   );
-  border-left: 4px solid rgba(251, 146, 60, 0.8);
+  border-left: 4px solid rgba(var(--grain-color-jowar), 0.8);
+}
+
+/* Kala Chana (Black Chickpea) - A deep, earthy brown */
+.grain-card-kala-chana {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--grain-color-kala-chana), 0.2) 0%,
+    rgba(var(--grain-color-kala-chana), 0.1) 100%
+  );
+  border-left: 4px solid rgba(var(--grain-color-kala-chana), 0.8);
+}
+
+/* Makka (Maize/Corn) - A vibrant, sunny orange-yellow */
+.grain-card-makka {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--grain-color-makka), 0.2) 0%,
+    rgba(var(--grain-color-makka), 0.1) 100%
+  );
+  border-left: 4px solid rgba(var(--grain-color-makka), 0.8);
+}
+
+/* Ragi (Finger Millet) - A rich, dark reddish-maroon */
+.grain-card-ragi {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--grain-color-ragi), 0.2) 0%,
+    rgba(var(--grain-color-ragi), 0.1) 100%
+  );
+  border-left: 4px solid rgba(var(--grain-color-ragi), 0.7);
+}
+
+/* Soyabean - A pale, buttery yellow */
+.grain-card-soyabean {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--grain-color-soyabean), 0.3) 0%,
+    rgba(var(--grain-color-soyabean), 0.2) 100%
+  );
+  border-left: 4px solid rgba(var(--grain-color-soyabean), 0.8);
+}
+
+/* Wheat (MP) - A bright, golden wheat color */
+.grain-card-wheat-mp {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--grain-color-wheat-mp), 0.25) 0%,
+    rgba(var(--grain-color-wheat-mp), 0.15) 100%
+  );
+  border-left: 4px solid rgba(var(--grain-color-wheat-mp), 0.9);
+}
+
+/* Wheat (Punjab) - A slightly deeper, amber wheat tone */
+.grain-card-wheat-punjab {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--grain-color-wheat-punjab), 0.25) 0%,
+    rgba(var(--grain-color-wheat-punjab), 0.15) 100%
+  );
+  border-left: 4px solid rgba(var(--grain-color-wheat-punjab), 0.9);
 }
 
 .grain-card-bajra {
   background: linear-gradient(
     135deg,
-    rgba(168, 162, 158, 0.2) 0%,
-    rgba(168, 162, 158, 0.1) 100%
+    rgba(var(--grain-color-bajra), 0.25) 0%,
+    rgba(var(--grain-color-bajra), 0.15) 100%
   );
-  border-left: 4px solid rgba(168, 162, 158, 0.8);
-}
-
-.grain-card-ragi {
-  background: linear-gradient(
-    135deg,
-    rgba(244, 63, 94, 0.2) 0%,
-    rgba(244, 63, 94, 0.1) 100%
-  );
-  border-left: 4px solid rgba(244, 63, 94, 0.8);
-}
-
-.grain-card-chana {
-  background: linear-gradient(
-    135deg,
-    rgba(254, 240, 138, 0.25) 0%,
-    rgba(254, 240, 138, 0.15) 100%
-  );
-  border-left: 4px solid rgba(254, 240, 138, 0.9);
-}
-
-.grain-card-makka {
-  background: linear-gradient(
-    135deg,
-    rgba(245, 158, 11, 0.2) 0%,
-    rgba(245, 158, 11, 0.1) 100%
-  );
-  border-left: 4px solid rgba(245, 158, 11, 0.8);
-}
-
-.grain-card-soyabean {
-  background: linear-gradient(
-    135deg,
-    rgba(190, 242, 100, 0.2) 0%,
-    rgba(190, 242, 100, 0.1) 100%
-  );
-  border-left: 4px solid rgba(190, 242, 100, 0.8);
+  border-left: 4px solid rgba(var(--grain-color-bajra), 0.9);
 }
 
 .grain-card-oats {
   background: linear-gradient(
     135deg,
-    rgba(148, 163, 184, 0.2) 0%,
-    rgba(148, 163, 184, 0.1) 100%
+    rgba(var(--grain-color-oats), 0.25) 0%,
+    rgba(var(--grain-color-oats), 0.15) 100%
   );
-  border-left: 4px solid rgba(148, 163, 184, 0.8);
-}
-
-.grain-card-barley {
-  background: linear-gradient(
-    135deg,
-    rgba(180, 83, 9, 0.2) 0%,
-    rgba(180, 83, 9, 0.1) 100%
-  );
-  border-left: 4px solid rgba(180, 83, 9, 0.8);
+  border-left: 4px solid rgba(var(--grain-color-oats), 0.9);
 }
 
 .grain-card-kuttu {
   background: linear-gradient(
     135deg,
-    rgba(87, 83, 78, 0.2) 0%,
-    rgba(87, 83, 78, 0.1) 100%
+    rgba(var(--grain-color-kuttu), 0.25) 0%,
+    rgba(var(--grain-color-kuttu), 0.15) 100%
   );
-  border-left: 4px solid rgba(87, 83, 78, 0.8);
+  border-left: 4px solid rgba(var(--grain-color-kuttu), 0.9);
+}
+
+.grain-card-chana {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--grain-color-chana), 0.25) 0%,
+    rgba(var(--grain-color-chana), 0.15) 100%
+  );
+  border-left: 4px solid rgba(var(--grain-color-chana), 0.9);
 }
 
 .grain-card-image {
