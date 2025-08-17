@@ -20,6 +20,7 @@ export const MixVisualizer = ({ mix, grains }) => {
       {mixItems.map((id) => {
         const grain = grains.find((g) => g.id == id);
         const percentage = (mix[id] / totalWeight) * 100;
+        const weight = mix[id];
         return (
           <div
             key={id}
@@ -29,7 +30,22 @@ export const MixVisualizer = ({ mix, grains }) => {
             )}`}
             style={{ height: `${percentage}%` }}
           >
-            {percentage > 10 && `${grain.name} ${percentage.toFixed(0)}%`}
+            {percentage > 8 && (
+              <div className="mix-visualizer-grain-text">
+                <div className="mix-visualizer-grain-name-weight">
+                  <span className="mix-visualizer-grain-name">
+                    {grain.name}
+                  </span>{" "}
+                  -
+                  <span className="mix-visualizer-grain-weight">
+                    {weight}kg
+                  </span>
+                </div>
+                <div className="mix-visualizer-grain-percentage">
+                  {percentage.toFixed(0)}%
+                </div>
+              </div>
+            )}
           </div>
         );
       })}

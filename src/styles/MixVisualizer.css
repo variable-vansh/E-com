@@ -124,6 +124,40 @@
   font-size: 0.75rem;
   font-weight: 700;
   transition: height 0.3s ease;
+  text-align: center;
+}
+
+.mix-visualizer-grain-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.mix-visualizer-grain-name-weight {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.mix-visualizer-grain-name {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.mix-visualizer-grain-weight {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.mix-visualizer-grain-percentage {
+  font-size: 0.8rem;
+  font-weight: 500;
+  opacity: 0.9;
+  padding-top: 0.1rem;
 }
 
 /* Grain color variants for visualizer - lighter, more pastel colors */
@@ -209,6 +243,14 @@
     font-size: 0.7rem;
   }
 
+  .mix-visualizer-grain-name {
+    font-size: 0.65rem;
+  }
+
+  .mix-visualizer-grain-info {
+    font-size: 0.6rem;
+  }
+
   .mix-visualizer-empty {
     padding: 1.5rem;
     font-size: 0.9rem;
@@ -222,6 +264,14 @@
 
   .mix-visualizer-grain {
     font-size: 0.6rem;
+  }
+
+  .mix-visualizer-grain-name {
+    font-size: 0.55rem;
+  }
+
+  .mix-visualizer-grain-info {
+    font-size: 0.5rem;
   }
 
   .mix-visualizer-empty {

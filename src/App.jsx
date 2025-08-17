@@ -66,11 +66,15 @@ export default function App() {
     setCustomMix((prevMix) => {
       const newMix = { ...prevMix };
       const currentQty = newMix[grainId] || 0;
-      if (action === "increase") {
+
+      if (typeof action === "number") {
+        newMix[grainId] = action;
+      } else if (action === "increase") {
         newMix[grainId] = parseFloat((currentQty + 0.5).toFixed(1));
       } else if (action === "decrease" && currentQty > 0) {
-        newMix[grainId] = parseFloat((currentQty - 0.5).toFixed(1));
+        newMix[grainId] = parseFloat(Math.max(0, currentQty - 0.5).toFixed(1));
       }
+
       if (newMix[grainId] <= 0) {
         delete newMix[grainId];
       }

@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { getGrainColorClass } from "../utils/colorUtils";
 import "../styles/GrainCard.css";
 
@@ -8,7 +9,13 @@ export const GrainCard = ({
   cardIndex = 0,
   isVisible = true,
 }) => {
+  const [inputValue, setInputValue] = useState(quantity.toString());
   const isHiddenCard = cardIndex >= 9;
+
+  // Update input value when quantity prop changes (from external updates like +/- buttons)
+  useEffect(() => {
+    setInputValue(quantity.toString());
+  }, [quantity]);
 
   return (
     <div
@@ -34,7 +41,44 @@ export const GrainCard = ({
             >
               -
             </button>
-            <span className="grain-card-quantity-value">{quantity}</span>
+            <input
+              type="number"
+              className="grain-card-quantity-value"
+              value={inputValue}
+              onChange={(e) => {
+                const value = e.target.value;
+                setInputValue(value); // Allow any input temporarily
+
+                // Only update the actual quantity if it's a valid number or empty
+                if (value === "") {
+                  onQuantityChange(grain.id, 0);
+                } else {
+                  const newQuantity = parseFloat(value);
+                  if (!isNaN(newQuantity) && newQuantity >= 0) {
+                    onQuantityChange(grain.id, newQuantity);
+                  }
+                }
+              }}
+              onBlur={(e) => {
+                // On blur, ensure we have a valid display value
+                const value = e.target.value;
+                if (value === "" || isNaN(parseFloat(value))) {
+                  setInputValue("0");
+                  onQuantityChange(grain.id, 0);
+                } else {
+                  const newQuantity = parseFloat(value);
+                  if (newQuantity >= 0) {
+                    setInputValue(newQuantity.toString());
+                    onQuantityChange(grain.id, newQuantity);
+                  } else {
+                    setInputValue("0");
+                    onQuantityChange(grain.id, 0);
+                  }
+                }
+              }}
+              step="0.5"
+              min="0"
+            />
             <button
               onClick={() => onQuantityChange(grain.id, "increase")}
               className="grain-card-btn grain-card-btn-increase"
