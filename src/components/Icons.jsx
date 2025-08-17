@@ -14,7 +14,7 @@ export const CloseIcon = () => <i className="fas fa-times icon-close"></i>;
 
 export const GrainIcon = ({ className }) => (
   <img
-    src="src\assets\grain-mix-cart-icon.svg"
+    src="public\grain-mix-cart-icon.svg"
     alt="Grain Mix"
     className={className}
   />
