@@ -211,7 +211,7 @@
   border: 1px solid #d1d5db;
   border-radius: 0.375rem;
   padding: 0.25rem;
-  -moz-appearance: textfield;
+  /* -moz-appearance: textfield; */
 }
 
 .grain-card-quantity-value::-webkit-outer-spin-button,
