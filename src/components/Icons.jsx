@@ -13,11 +13,7 @@ export const ChevronDownIcon = ({ className }) => (
 export const CloseIcon = () => <i className="fas fa-times icon-close"></i>;
 
 export const GrainIcon = ({ className }) => (
-  <img
-    src="public\grain-mix-cart-icon.svg"
-    alt="Grain Mix"
-    className={className}
-  />
+  <img src="/grain-mix-cart-icon.svg" alt="Grain Mix" className={className} />
 );
 
 export const MixIcon = ({ className }) => (

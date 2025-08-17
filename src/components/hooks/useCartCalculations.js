@@ -40,7 +40,8 @@ export const useCartCalculations = (
     }, 0);
 
     const deliveryFee = total > 0 ? 20 : 0;
-    const grandTotal = total + deliveryFee;
+    const discount = 20;
+    const grandTotal = total + deliveryFee - discount;
     // Check if address is filled
     const { address, pincode, phone } = addressDetails;
     const isAddressFilled =
