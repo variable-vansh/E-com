@@ -20,6 +20,7 @@ import { AttaComposer } from "./components/AttaComposer";
 import { GeneralStore } from "./components/GeneralStore";
 import { Footer } from "./components/Footer";
 import { Cart } from "./components/Cart";
+import PromoBanner from "./components/PromoBanner";
 import ErrorBoundary from "./components/ErrorBoundary";
 
 export default function App() {
@@ -157,6 +158,7 @@ export default function App() {
               </div>
             ) : (
               <main className="app-main">
+                <PromoBanner />
                 <AttaComposer
                   customMix={customMix}
                   onMixChange={handleMixChange}

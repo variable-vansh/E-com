@@ -62,6 +62,22 @@ class ApiService {
     }
   }
 
+  async fetchPromos() {
+    try {
+      const response = await this.fetchWithTimeout(
+        `${API_BASE_URL}/promos/active`
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      return data.data || [];
+    } catch (error) {
+      console.error("Error fetching promos:", error);
+      return [];
+    }
+  }
+
   async submitOrder(orderData) {
     try {
       const response = await this.fetchWithTimeout(`${API_BASE_URL}/orders`, {

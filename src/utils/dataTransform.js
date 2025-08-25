@@ -74,6 +74,23 @@ export const transformCategories = (apiCategories) => {
 
 // Get unique categories from products for filtering
 export const getUniqueCategories = (products) => {
-  const categories = [...new Set(products.map((p) => p.category).filter(Boolean))];
+  const categories = [
+    ...new Set(products.map((p) => p.category).filter(Boolean)),
+  ];
   return ["All", ...categories.sort()];
+};
+
+// Transform promos from API format to frontend format
+export const transformPromos = (apiPromos) => {
+  return apiPromos
+    .filter((promo) => promo.isActive)
+    .sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0))
+    .map((promo) => ({
+      id: promo.id,
+      imageUrl: promo.imageUrl,
+      title: promo.title || "",
+      description: promo.description || "",
+      isActive: promo.isActive,
+      displayOrder: promo.displayOrder || 0,
+    }));
 };
