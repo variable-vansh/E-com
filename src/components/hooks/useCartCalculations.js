@@ -39,7 +39,7 @@ export const useCartCalculations = (
       return sum + cart[id] * product.price;
     }, 0);
 
-    const deliveryFee = total > 0 ? 20 : 0;
+    const deliveryFee = 20;
     const discount = 20;
     const grandTotal = total + deliveryFee - discount;
     // Check if address is filled

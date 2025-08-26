@@ -21,6 +21,20 @@ export const MixVisualizer = ({ mix, grains }) => {
         const grain = grains.find((g) => g.id == id);
         const percentage = (mix[id] / totalWeight) * 100;
         const weight = mix[id];
+
+        // Calculate dynamic font size based on available space
+        const getFontSize = (percentage) => {
+          if (percentage >= 20) return 1; // Normal size
+          if (percentage >= 15) return 0.85; // Slightly smaller
+          if (percentage >= 12) return 0.75; // Smaller
+          if (percentage >= 8) return 0.65; // Much smaller
+          if (percentage >= 5) return 0.55; // Very small
+          return 0; // Hide text below 5%
+        };
+
+        const fontScale = getFontSize(percentage);
+        const shouldShowText = fontScale > 0;
+
         return (
           <div
             key={id}
@@ -30,8 +44,11 @@ export const MixVisualizer = ({ mix, grains }) => {
             )}`}
             style={{ height: `${percentage}%` }}
           >
-            {percentage > 8 && (
-              <div className="mix-visualizer-grain-text">
+            {shouldShowText && (
+              <div
+                className="mix-visualizer-grain-text"
+                style={{ fontSize: `${fontScale}rem` }}
+              >
                 <div className="mix-visualizer-grain-name-weight">
                   <span className="mix-visualizer-grain-name">
                     {grain.name}
@@ -40,9 +57,6 @@ export const MixVisualizer = ({ mix, grains }) => {
                   <span className="mix-visualizer-grain-weight">
                     {weight}kg
                   </span>
-                </div>
-                <div className="mix-visualizer-grain-percentage">
-                  {percentage.toFixed(0)}%
                 </div>
               </div>
             )}

@@ -1,4 +1,4 @@
-import { SeedlingIcon, LocationIcon, CartIcon } from "./Icons";
+import { SeedlingIcon, CartIcon } from "./Icons";
 import "../styles/Header.css";
 
 export const Header = ({ cartItemCount, onCartClick }) => (
@@ -8,10 +8,6 @@ export const Header = ({ cartItemCount, onCartClick }) => (
         <div className="header-logo">
           <SeedlingIcon />
           <h1>Shop Name</h1>
-        </div>
-        <div className="header-search">
-          <LocationIcon />
-          <input type="text" placeholder="Enter your delivery location" />
         </div>
         <button onClick={onCartClick} className="header-cart-btn">
           <CartIcon />
