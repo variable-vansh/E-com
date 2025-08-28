@@ -8,11 +8,30 @@
   background: #f8f9fa;
 }
 
+/* Device-specific optimizations */
+.promo-banner[data-device-type="MOBILE"] {
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.promo-banner[data-device-type="DESKTOP"] {
+  margin-bottom: 2.5rem;
+}
+
 .promo-container {
   position: relative;
   width: 100%;
   height: 200px;
   overflow: hidden;
+}
+
+/* Device-specific container heights */
+.promo-container[data-device-type="MOBILE"] {
+  height: 160px;
+}
+
+.promo-container[data-device-type="DESKTOP"] {
+  height: 220px;
 }
 
 .promo-slides {

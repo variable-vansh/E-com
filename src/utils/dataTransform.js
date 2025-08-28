@@ -1,5 +1,12 @@
 // Data transformation utilities to convert API responses to frontend format
 
+// Import device detection (re-export for convenience)
+export {
+  detectDeviceType,
+  getDeviceInfo,
+  useDeviceType,
+} from "./deviceDetection.js";
+
 // Transform products from API format to frontend format
 export const transformProducts = (apiProducts) => {
   return apiProducts
@@ -92,5 +99,6 @@ export const transformPromos = (apiPromos) => {
       description: promo.description || "",
       isActive: promo.isActive,
       displayOrder: promo.displayOrder || 0,
+      deviceType: promo.deviceType || "BOTH",
     }));
 };

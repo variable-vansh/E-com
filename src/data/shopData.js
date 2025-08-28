@@ -3,6 +3,7 @@ import {
   transformProducts,
   transformGrains,
   getUniqueCategories,
+  transformPromos,
 } from "../utils/dataTransform.js";
 
 // Data loading functions
@@ -20,4 +21,9 @@ export const loadCategoriesData = async () => {
   const apiProducts = await apiService.fetchProducts();
   const transformedProducts = transformProducts(apiProducts);
   return getUniqueCategories(transformedProducts);
+};
+
+export const loadPromosData = async (deviceType = null) => {
+  const apiPromos = await apiService.fetchPromos(deviceType);
+  return transformPromos(apiPromos);
 };

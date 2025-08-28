@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { apiService } from "../services/api";
-import { transformPromos } from "../utils/dataTransform";
+import { transformPromos, useDeviceType } from "../utils/dataTransform";
 import "../styles/PromoBanner.css";
 
 const PromoBanner = () => {
@@ -9,22 +9,34 @@ const PromoBanner = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Use the custom hook for device type detection
+  const deviceType = useDeviceType();
+
   useEffect(() => {
     const loadPromos = async () => {
       try {
         setLoading(true);
         setError(null);
         console.log(
-          "Attempting to fetch promos from:",
+          "Attempting to fetch promos for device type:",
+          deviceType,
+          "from:",
           `${
             import.meta.env.VITE_API_BASE_URL || "http://147.93.153.136/api"
-          }/promos/active`
+          }/promos/${deviceType !== "BOTH" ? `device/${deviceType}` : "active"}`
         );
-        const apiPromos = await apiService.fetchPromos();
+        const apiPromos = await apiService.fetchPromos(deviceType);
         console.log("Received promos:", apiPromos);
         const transformedPromos = transformPromos(apiPromos);
-        console.log("Transformed promos:", transformedPromos);
+        console.log(
+          "Transformed promos for",
+          deviceType,
+          ":",
+          transformedPromos
+        );
         setPromos(transformedPromos);
+        // Reset current index when promos change
+        setCurrentPromoIndex(0);
       } catch (err) {
         console.error("Error loading promos:", err);
         setError(err.message);
@@ -36,7 +48,7 @@ const PromoBanner = () => {
     };
 
     loadPromos();
-  }, []);
+  }, [deviceType]); // Re-fetch when device type changes
 
   useEffect(() => {
     if (promos.length > 1) {
@@ -64,7 +76,7 @@ const PromoBanner = () => {
 
   if (loading) {
     return (
-      <div className="promo-banner">
+      <div className="promo-banner" data-device-type={deviceType}>
         <div className="promo-skeleton">
           <div className="skeleton-loader"></div>
         </div>
@@ -73,14 +85,21 @@ const PromoBanner = () => {
   }
 
   if (error || promos.length === 0) {
+    // Only show error in development
+    if (import.meta.env.DEV && error) {
+      console.warn(
+        `PromoBanner: No promos available for ${deviceType} device type. Error:`,
+        error
+      );
+    }
     return null; // Don't render anything if there's an error or no promos
   }
 
   const currentPromo = promos[currentPromoIndex];
 
   return (
-    <div className="promo-banner">
-      <div className="promo-container">
+    <div className="promo-banner" data-device-type={deviceType}>
+      <div className="promo-container" data-device-type={deviceType}>
         <div
           className="promo-slides"
           style={{

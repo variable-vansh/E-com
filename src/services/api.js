@@ -62,11 +62,16 @@ class ApiService {
     }
   }
 
-  async fetchPromos() {
+  async fetchPromos(deviceType = null) {
     try {
-      const response = await this.fetchWithTimeout(
-        `${API_BASE_URL}/promos/active`
-      );
+      let url = `${API_BASE_URL}/promos/active`;
+
+      // If deviceType is specified, use the device-specific endpoint
+      if (deviceType && deviceType !== "BOTH") {
+        url = `${API_BASE_URL}/promos/device/${deviceType}`;
+      }
+
+      const response = await this.fetchWithTimeout(url);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
