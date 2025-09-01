@@ -25,7 +25,7 @@
 /* Top Section - Single Rectangle with All Key Info */
 .order-summary-top {
   display: grid;
-  grid-template-columns: 2fr 1.5fr 1.5fr;
+  grid-template-columns: 1.8fr 2.2fr 1.5fr;
   gap: 0px;
   background: #f8f9fa;
   border: 1px solid #e9ecef;
@@ -404,6 +404,12 @@
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .order-summary-top {
+    grid-template-columns: 1.6fr 2.4fr 1.4fr;
+  }
+}
+
 @media (max-width: 768px) {
   .order-summary-container {
     margin: 10px;

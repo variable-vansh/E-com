@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { formatOrderId, getExpectedDeliveryDate } from "../utils/orderUtils";
 import { getGrainColor } from "../utils/colorUtils";
 import "../styles/OrderSummaryNew.css";
@@ -9,6 +9,11 @@ export const OrderSummary = ({
   grainsData = [],
   productsData = [],
 }) => {
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
   if (!orderData) {
     return (
       <div className="order-summary-error">
