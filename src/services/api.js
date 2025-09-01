@@ -97,7 +97,15 @@ class ApiService {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      return await response.json();
+      const result = await response.json();
+
+      // Return the order data with the generated order ID
+      return {
+        success: true,
+        orderId: orderData.orderId, // Use the client-generated order ID
+        data: result,
+        ...orderData, // Include full order data for immediate use
+      };
     } catch (error) {
       console.error("Error submitting order:", error);
       throw error;

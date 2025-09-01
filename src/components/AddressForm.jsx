@@ -10,6 +10,7 @@ export const AddressForm = ({
   cartMix,
   grainsData,
   productsData,
+  onOrderSuccess, // New prop to handle order success
 }) => {
   return (
     <div className={`address-form-container ${isAddressView ? "visible" : ""}`}>
@@ -27,6 +28,7 @@ export const AddressForm = ({
           cartMix={cartMix}
           grainsData={grainsData}
           productsData={productsData}
+          onOrderSuccess={onOrderSuccess} // Pass the callback
         />
       </div>
     </div>

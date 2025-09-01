@@ -16,6 +16,7 @@ export const Cart = ({
   onMixRemove,
   grainsData,
   productsData,
+  onOrderSuccess, // New prop to handle order success
 }) => {
   const [isClosing, setIsClosing] = useState(false);
   const [isAddressView, setIsAddressView] = useState(false);
@@ -138,6 +139,7 @@ export const Cart = ({
         cartMix={cartMix}
         grainsData={grainsData}
         productsData={productsData}
+        onOrderSuccess={onOrderSuccess} // Pass the callback
       />
     </>
   );

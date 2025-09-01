@@ -20,6 +20,7 @@ import { AttaComposer } from "./components/AttaComposer";
 import { GeneralStore } from "./components/GeneralStore";
 import { Footer } from "./components/Footer";
 import { Cart } from "./components/Cart";
+import { OrderSummary } from "./components/OrderSummary";
 import PromoBanner from "./components/PromoBanner";
 import ErrorBoundary from "./components/ErrorBoundary";
 
@@ -28,6 +29,8 @@ export default function App() {
   const [cartMix, setCartMix] = useState(() => loadCartMixFromStorage());
   const [cart, setCart] = useState(() => loadCartFromStorage());
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [orderData, setOrderData] = useState(null); // New state for order data
+  const [showOrderSummary, setShowOrderSummary] = useState(false); // New state to show order summary
 
   // Use the custom hook to load data
   const { grainsData, productsData, categoriesData, loading, error } =
@@ -114,6 +117,23 @@ export default function App() {
     setIsCartOpen((prev) => !prev);
   }, []);
 
+  const handleOrderSuccess = useCallback((orderResponse) => {
+    // Store the order data
+    setOrderData(orderResponse);
+    // Close the cart
+    setIsCartOpen(false);
+    // Clear the cart and mix after successful order
+    setCart({});
+    setCartMix({});
+    // Show order summary
+    setShowOrderSummary(true);
+  }, []);
+
+  const handleBackToShopping = useCallback(() => {
+    setShowOrderSummary(false);
+    setOrderData(null);
+  }, []);
+
   const cartItemCount = useMemo(() => {
     const mixCount = Object.keys(cartMix).length > 0 ? 1 : 0;
     const productCount = Object.keys(cart).length;
@@ -127,7 +147,14 @@ export default function App() {
         <div className="app-layout">
           <div className="app-main-content">
             <Header cartItemCount={cartItemCount} onCartClick={toggleCart} />
-            {loading ? (
+            {showOrderSummary ? (
+              <OrderSummary
+                orderData={orderData}
+                onBackToShopping={handleBackToShopping}
+                grainsData={grainsData}
+                productsData={productsData}
+              />
+            ) : loading ? (
               <div
                 className="loading-container"
                 style={{
@@ -173,18 +200,21 @@ export default function App() {
                 />
               </main>
             )}
-            <Footer />
+            {!showOrderSummary && <Footer />}
           </div>
-          <Cart
-            isOpen={isCartOpen}
-            onClose={toggleCart}
-            cart={cart}
-            cartMix={cartMix}
-            onCartChange={handleCartChange}
-            onMixRemove={handleRemoveMixFromCart}
-            grainsData={grainsData}
-            productsData={productsData}
-          />
+          {!showOrderSummary && (
+            <Cart
+              isOpen={isCartOpen}
+              onClose={toggleCart}
+              cart={cart}
+              cartMix={cartMix}
+              onCartChange={handleCartChange}
+              onMixRemove={handleRemoveMixFromCart}
+              grainsData={grainsData}
+              productsData={productsData}
+              onOrderSuccess={handleOrderSuccess}
+            />
+          )}
         </div>
       </div>
     </ErrorBoundary>
