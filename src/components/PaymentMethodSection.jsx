@@ -4,45 +4,38 @@ export const PaymentMethodSection = ({
   paymentMethod,
   onPaymentMethodChange,
 }) => {
+  const handleSelectChange = (e) => {
+    onPaymentMethodChange(e);
+  };
+
   return (
     <div className="form-group payment-method-section">
-      <label className="payment-method-label">Payment Method</label>
-      <div className="payment-options">
-        <div className="payment-option">
-          <input
-            type="radio"
-            id="cod"
+      <div className="payment-method-row">
+        <label htmlFor="paymentMethod" className="payment-method-label">
+          Payment Method
+        </label>
+        <div className="payment-dropdown-container">
+          <select
+            id="paymentMethod"
             name="paymentMethod"
-            value="cod"
-            checked={paymentMethod === "cod"}
-            onChange={onPaymentMethodChange}
-            className="payment-radio"
-          />
-          <label htmlFor="cod" className="payment-option-label">
-            <div className="payment-option-content">
-              <span className="payment-option-title">Cash on Delivery</span>
-              <span className="payment-option-desc">
-                Pay when order arrives
-              </span>
-            </div>
-          </label>
-        </div>
-        <div className="payment-option">
-          <input
-            type="radio"
-            id="pay"
-            name="paymentMethod"
-            value="pay"
-            checked={paymentMethod === "pay"}
-            onChange={onPaymentMethodChange}
-            className="payment-radio"
-          />
-          <label htmlFor="pay" className="payment-option-label">
-            <div className="payment-option-content">
-              <span className="payment-option-title">Pay Now</span>
-              <span className="payment-option-desc">Secure online payment</span>
-            </div>
-          </label>
+            value={paymentMethod}
+            onChange={handleSelectChange}
+            className="payment-dropdown"
+          >
+            <option value="pay">Pay Online</option>
+            <option value="cod">Cash on Delivery</option>
+          </select>
+          <div className="dropdown-arrow-icon">
+            <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
+              <path
+                d="M1 1.5L6 6.5L11 1.5"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
         </div>
       </div>
     </div>

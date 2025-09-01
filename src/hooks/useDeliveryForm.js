@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 export const useDeliveryForm = ({ onAddressChange }) => {
   const [showOtpInputs, setShowOtpInputs] = useState(false);
   const [otpValues, setOtpValues] = useState(["", "", "", ""]);
-  const [paymentMethod, setPaymentMethod] = useState("cod");
+  const [paymentMethod, setPaymentMethod] = useState("pay");
   const [manualFields, setManualFields] = useState({
     fullName: "",
     phone: "",
