@@ -117,16 +117,6 @@ const PromoBanner = () => {
                   e.target.style.display = "none";
                 }}
               />
-              {(promo.title || promo.description) && (
-                <div className="promo-overlay">
-                  {promo.title && (
-                    <h2 className="promo-title">{promo.title}</h2>
-                  )}
-                  {promo.description && (
-                    <p className="promo-description">{promo.description}</p>
-                  )}
-                </div>
-              )}
             </div>
           ))}
         </div>
