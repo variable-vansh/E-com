@@ -7,6 +7,8 @@ export const useOrderSubmission = ({
   cartMix,
   grainsData,
   productsData,
+  appliedCoupon = null,
+  eligibleFreeItems = [],
   onOrderSuccess,
 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -20,6 +22,26 @@ export const useOrderSubmission = ({
     try {
       // Generate a 6-digit order ID
       const orderId = generateOrderId();
+
+      // Calculate item total without delivery and discounts
+      const itemTotal =
+        Object.keys(cart).reduce((sum, productId) => {
+          const product = productsData.find((p) => p.id == productId);
+          return sum + (product?.price || 0) * cart[productId];
+        }, 0) +
+        Object.keys(cartMix).reduce((sum, grainId) => {
+          const grain = grainsData.find((g) => g.id == grainId);
+          return sum + (grain?.price || 0) * cartMix[grainId];
+        }, 0);
+
+      // Calculate discounts
+      const deliveryFee = 20;
+      const staticDiscount = 20;
+      const couponDiscount = appliedCoupon?.discountAmount || 0;
+      const freeItemsValue = eligibleFreeItems.reduce(
+        (sum, item) => sum + (item.product?.price || 0),
+        0
+      );
 
       // Prepare order data
       const orderData = {
@@ -65,10 +87,32 @@ export const useOrderSubmission = ({
                 }),
               }
             : null,
+        freeItems: eligibleFreeItems.map((item) => ({
+          itemId: item.id,
+          itemName: item.product?.name || "Unknown Item",
+          itemType: "additional_item_coupon",
+          originalPrice: item.product?.price || 0,
+          description: item.description,
+          minOrderAmount: item.minOrderAmount,
+        })),
+        appliedCoupon: appliedCoupon
+          ? {
+              id: appliedCoupon.id,
+              name: appliedCoupon.name,
+              code: appliedCoupon.code,
+              type: appliedCoupon.type,
+              discountAmount: appliedCoupon.discountAmount,
+              minOrderAmountForDiscount:
+                appliedCoupon.minOrderAmountForDiscount,
+            }
+          : null,
         pricing: {
-          itemTotal: grandTotal - 40, // Assuming delivery fee is 40
-          deliveryFee: 40,
-          discount: 20,
+          itemTotal: itemTotal,
+          deliveryFee: deliveryFee,
+          staticDiscount: staticDiscount,
+          couponDiscount: couponDiscount,
+          freeItemsValue: freeItemsValue,
+          totalSavings: staticDiscount + couponDiscount + freeItemsValue,
           grandTotal: grandTotal,
         },
         orderTimestamp: new Date().toISOString(),
@@ -77,11 +121,8 @@ export const useOrderSubmission = ({
         orderStatus: "confirmed",
       };
 
-      console.log("Submitting order data:", orderData);
-
       const response = await apiService.submitOrder(orderData);
 
-      console.log("Order submitted successfully:", response);
       setSubmitSuccess(true);
 
       // Call the success callback with the order data

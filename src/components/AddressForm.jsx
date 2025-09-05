@@ -10,6 +10,8 @@ export const AddressForm = ({
   cartMix,
   grainsData,
   productsData,
+  appliedCoupon,
+  eligibleFreeItems,
   onOrderSuccess, // New prop to handle order success
 }) => {
   return (
@@ -28,6 +30,8 @@ export const AddressForm = ({
           cartMix={cartMix}
           grainsData={grainsData}
           productsData={productsData}
+          appliedCoupon={appliedCoupon}
+          eligibleFreeItems={eligibleFreeItems}
           onOrderSuccess={onOrderSuccess} // Pass the callback
         />
       </div>

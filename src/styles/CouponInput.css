@@ -1,0 +1,251 @@
+/* Coupon Input Styles */
+.coupon-input-container {
+  margin: 16px 0;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  background: #fff;
+}
+
+.coupon-toggle-btn {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  background: transparent;
+  color: #4caf50;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.coupon-toggle-btn:hover {
+  background: #f8f9fa;
+  color: #2e7d32;
+}
+
+.coupon-icon {
+  font-size: 16px;
+}
+
+.coupon-input-form {
+  padding: 16px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.coupon-input-wrapper {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.coupon-input {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.coupon-input:focus {
+  outline: none;
+  border-color: #4caf50;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.1);
+}
+
+.coupon-input:disabled {
+  background: #f5f5f5;
+  cursor: not-allowed;
+}
+
+.coupon-apply-btn {
+  padding: 12px 20px;
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.coupon-apply-btn:hover:not(:disabled) {
+  background: #45a049;
+  transform: translateY(-1px);
+}
+
+.coupon-apply-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.coupon-form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.coupon-browse-btn {
+  background: none;
+  border: 1px solid #4caf50;
+  color: #4caf50;
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.coupon-browse-btn:hover {
+  background: #4caf50;
+  color: white;
+}
+
+.coupon-cancel-btn {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.coupon-cancel-btn:hover {
+  background: #f0f0f0;
+  color: #333;
+}
+
+/* Applied Coupon Styles */
+.coupon-applied {
+  margin: 16px 0;
+  border-radius: 8px;
+  border: 1px solid #4caf50;
+  background: linear-gradient(135deg, #e8f5e8, #f1f8e9);
+}
+
+.coupon-applied-content {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: between;
+}
+
+.coupon-applied-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.coupon-applied-icon {
+  font-size: 20px;
+}
+
+.coupon-applied-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.coupon-applied-name {
+  font-weight: 600;
+  color: #2e7d32;
+  font-size: 14px;
+}
+
+.coupon-applied-discount {
+  font-size: 13px;
+  color: #4caf50;
+  font-weight: 500;
+}
+
+.coupon-remove-btn {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.coupon-remove-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: #333;
+}
+
+/* Message Styles */
+.coupon-message {
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  border-top: 1px solid #e0e0e0;
+  animation: slideDown 0.3s ease;
+}
+
+.coupon-message.success {
+  background: #e8f5e8;
+  color: #2e7d32;
+  border-top-color: #4caf50;
+}
+
+.coupon-message.error {
+  background: #ffebee;
+  color: #c62828;
+  border-top-color: #f44336;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .coupon-input-wrapper {
+    flex-direction: column;
+  }
+
+  .coupon-apply-btn {
+    width: 100%;
+  }
+
+  .coupon-applied-content {
+    padding: 12px;
+  }
+
+  .coupon-applied-text {
+    gap: 1px;
+  }
+
+  .coupon-applied-name {
+    font-size: 13px;
+  }
+
+  .coupon-applied-discount {
+    font-size: 12px;
+  }
+}

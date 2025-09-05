@@ -228,6 +228,32 @@
   padding-right: 1rem;
 }
 
+/* Cart Partition */
+.cart-partition {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #e9ecef 20%,
+    #e9ecef 80%,
+    transparent 100%
+  );
+  margin: 1rem 0;
+  position: relative;
+}
+
+.cart-partition::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 5px;
+  background: #fde69866;
+  border-radius: 2px;
+}
+
 .bill-details-column {
   flex: 1;
   padding-left: 1rem;
@@ -767,6 +793,120 @@
 
 .bill-row.discount span:last-child {
   color: #28a745;
+}
+
+.bill-row.coupon-discount {
+  color: #4caf50;
+}
+
+.bill-row.coupon-discount span:last-child {
+  color: #4caf50;
+  font-weight: 700;
+}
+
+.bill-row.savings {
+  color: #ff9800;
+}
+
+.bill-row.savings span:last-child {
+  color: #ff9800;
+  font-weight: 600;
+}
+
+.bill-row.total-savings {
+  background: linear-gradient(135deg, #e8f5e8, #f1f8e9);
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #4caf50;
+  margin: 8px 0;
+}
+
+.bill-row.total-savings span:first-child {
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+.bill-row.total-savings .savings-amount {
+  color: #4caf50;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.savings-amount {
+  background: linear-gradient(135deg, #4caf50, #45a049);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+}
+
+/* Free Item Wrapper */
+.free-item-wrapper {
+  margin-bottom: 1rem;
+}
+
+/* Free Items in Cart - Applied to CartProductItem when isFreeItem=true */
+.free-item-cart {
+  background: #fde69866 !important;
+  border: 2px solid #fde698 !important;
+  border-radius: 8px;
+  position: relative;
+  animation: slideInFree 0.5s ease;
+  box-shadow: 0 4px 8px rgba(253, 230, 152, 0.15);
+}
+
+.free-item-cart .product-text-left h3 {
+  color: #8b5a00;
+  font-weight: 600;
+}
+
+.free-badge {
+  background: #fde698;
+  color: #8b5a00;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 4px rgba(253, 230, 152, 0.3);
+  margin-left: 8px;
+}
+
+.free-item-cart .original-price {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 12px;
+  margin-right: 8px;
+}
+
+.free-item-cart .free-price {
+  color: #8b5a00;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.free-item-cart .quantity-display {
+  background: #fde698;
+  color: #8b5a00;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(253, 230, 152, 0.3);
+  min-width: 24px;
+  text-align: center;
+  display: inline-block;
+}
+
+@keyframes slideInFree {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Receipt styling enhancements */

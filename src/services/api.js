@@ -1,5 +1,7 @@
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || "http://147.93.153.136/api";
+const COUPON_API_BASE_URL =
+  import.meta.env.VITE_COUPON_API_BASE_URL || "http://localhost:3000/api";
 const API_TIMEOUT = import.meta.env.VITE_API_TIMEOUT || 5000;
 
 class ApiService {
@@ -80,6 +82,104 @@ class ApiService {
     } catch (error) {
       console.error("Error fetching promos:", error);
       return [];
+    }
+  }
+
+  async getAllCoupons(type = null) {
+    try {
+      let url = `${COUPON_API_BASE_URL}/coupons`;
+      if (type) {
+        url += `?type=${type}&active=true`;
+      }
+
+      const response = await this.fetchWithTimeout(url);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      return data.success ? data.data || [] : [];
+    } catch (error) {
+      console.error("Error fetching all coupons:", error);
+      return [];
+    }
+  }
+
+  async fetchAdditionalItemCoupons(orderAmount) {
+    try {
+      const response = await this.fetchWithTimeout(
+        `${COUPON_API_BASE_URL}/coupons/additional-items?orderAmount=${orderAmount}`
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      return data.success ? data.data || [] : [];
+    } catch (error) {
+      console.error("Error fetching additional item coupons:", error);
+      // Return empty array to prevent undefined errors
+      return [];
+    }
+  }
+
+  async validateCoupon(code, orderAmount, userId = null) {
+    try {
+      const response = await this.fetchWithTimeout(
+        `${COUPON_API_BASE_URL}/coupons/validate`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            code: code.toUpperCase(),
+            orderAmount,
+            ...(userId && { userId }),
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      // Handle backend error responses
+      if (!response.ok) {
+        return {
+          success: false,
+          valid: false,
+          message: data.error?.message || "Failed to validate coupon",
+          error: data.error?.code || "VALIDATION_FAILED",
+        };
+      }
+
+      // Backend returns success response
+      if (data.success && data.valid) {
+        return {
+          success: true,
+          valid: true,
+          coupon: {
+            ...data.coupon,
+            // Ensure we have the required fields for frontend
+            code: code.toUpperCase(),
+            discountAmount: data.discountAmount,
+          },
+          discountAmount: data.discountAmount,
+          message: data.message,
+        };
+      } else {
+        return {
+          success: false,
+          valid: false,
+          message: data.error?.message || "Invalid coupon",
+          error: data.error?.code || "COUPON_INVALID",
+        };
+      }
+    } catch (error) {
+      console.error("Error validating coupon:", error);
+      return {
+        success: false,
+        valid: false,
+        message: "Failed to validate coupon. Please try again.",
+        error: "NETWORK_ERROR",
+      };
     }
   }
 

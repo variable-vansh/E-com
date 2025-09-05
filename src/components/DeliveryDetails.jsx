@@ -15,6 +15,8 @@ export const DeliveryDetails = ({
   cartMix = {},
   grainsData = [],
   productsData = [],
+  appliedCoupon = null,
+  eligibleFreeItems = [],
   onOrderSuccess, // New prop to handle successful order
 }) => {
   // Use custom hooks for form state and order submission
@@ -40,6 +42,8 @@ export const DeliveryDetails = ({
       cartMix,
       grainsData,
       productsData,
+      appliedCoupon,
+      eligibleFreeItems,
       onOrderSuccess,
     });
 
