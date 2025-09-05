@@ -1,7 +1,7 @@
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || "http://147.93.153.136/api";
 const COUPON_API_BASE_URL =
-  import.meta.env.VITE_COUPON_API_BASE_URL || "http://localhost:3000/api";
+  import.meta.env.VITE_COUPON_API_BASE_URL || "http://147.93.153.136/api";
 const API_TIMEOUT = import.meta.env.VITE_API_TIMEOUT || 5000;
 
 class ApiService {
